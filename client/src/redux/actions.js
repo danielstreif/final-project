@@ -15,6 +15,13 @@ export function updateBio(bio) {
     };
 }
 
+export function updateProfilePic(img) {
+    return {
+        type: "UPDATE_PROFILE_PIC",
+        newImg: img,
+    };
+}
+
 export async function getOtherUser(id) {
     const { data } = await axios.get(`/user/profile/${id}`);
     return {

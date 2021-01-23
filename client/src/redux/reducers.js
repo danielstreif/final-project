@@ -16,6 +16,16 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "UPDATE_PROFILE_PIC") {
+        state = {
+            ...state,
+            activeUser: {
+                ...state.activeUser,
+                url: action.newImg,
+            },
+        };
+    }
+
     if (action.type == "GET_OTHER_USER") {
         state = {
             ...state,

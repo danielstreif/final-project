@@ -11,7 +11,7 @@ const router = express.Router();
 
 const diskStorage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, `${__dirname}/uploads`);
+        callback(null, `${__dirname}/../uploads`);
     },
     filename: (req, file, callback) => {
         uidSafe(24)

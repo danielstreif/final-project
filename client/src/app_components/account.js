@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import useAuthSubmit from "../hooks/useAuthSubmit";
+import Uploader from "../components/imgUploader";
 
 export default function Account() {
     const activeUser = useSelector((state) => state.activeUser);
@@ -11,17 +12,20 @@ export default function Account() {
         email: activeUser.email,
         deleteAcc: false,
     });
-    const [confirmDelete, setDelete] = useState(false);
+    const [confirmDelete, setDeleteModal] = useState(false);
+    const [uploadProfilePic, setUploadModal] = useState(false);
     const [error, handleSubmit] = useAuthSubmit("/user/profile/edit", values);
-
-    // include image upload
 
     const toggleDelete = () => {
         setValues({
             ...values,
             deleteAcc: !values.deleteAcc,
         });
-        setDelete(!confirmDelete);
+        setDeleteModal(!confirmDelete);
+    };
+
+    const toggleUpload = () => {
+        setUploadModal(!uploadProfilePic);
     };
 
     const handleChange = (e) => {
@@ -55,6 +59,7 @@ export default function Account() {
     return (
         <>
             {confirmDelete && confirmModal}
+            {uploadProfilePic && <Uploader toggleModal={toggleUpload} />}
             <h2 className="title">Account Settings</h2>
             <div className="auth-container">
                 {error && (
@@ -93,15 +98,12 @@ export default function Account() {
                     placeholder="Change Password"
                     type="password"
                 />
-                <div>
-                    <button onClick={handleSubmit}>Submit Changes</button>
-                    <Link to="/">
-                        <button>Cancel</button>
-                    </Link>
-                </div>
-                <div>
-                    <button onClick={toggleDelete}>Delete Account</button>
-                </div>
+                <button onClick={handleSubmit}>Submit Changes</button>
+                <Link to="/">
+                    <button>Cancel</button>
+                </Link>
+                <button onClick={toggleUpload}>Change Profile Picture</button>
+                <button onClick={toggleDelete}>Delete Account</button>
             </div>
         </>
     );
