@@ -6,21 +6,14 @@ const csurf = require("csurf");
 const path = require("path");
 const routes = require("./routes");
 
-let secrets;
-if (process.env.NODE_ENV == "production") {
-    secrets = process.env;
-} else {
-    secrets = require("./secrets");
-}
-
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 
 app.use(
     cookieSession({
-        secret: secrets.sessionSecret,
-        maxAge: secrets.maxAge,
+        secret: process.env.SESSION_SECRET,
+        maxAge: process.env.MAX_AGE,
     })
 );
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const s3 = require("../s3");
 const { s3Url } = require("../config.json");
-const db = require("../db/users");
+const db = require("../database/users");
 const { hash } = require("../bc");
 const path = require("path");
 const multer = require("multer");
@@ -57,6 +57,7 @@ router.get("/user/search", (req, res) => {
 router.get("/user/profile", (req, res) => {
     db.getUserInfo(req.session.userId)
         .then(({ rows }) => {
+            rows[0].mapboxKey = process.env.MAPBOX_KEY;
             res.json(rows[0]);
         })
         .catch((err) => console.log("GetUserInfo error: ", err));

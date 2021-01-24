@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../db/users");
+const db = require("../database/users");
 const { hash, compare } = require("../bc");
 const cryptoRandomString = require("crypto-random-string");
 const ses = require("../ses");

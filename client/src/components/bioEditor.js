@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { updateBio } from "../redux/actions";
+import { updateBio } from "../redux/user/actions";
 import axios from "../axios";
 
 export default function BioEditor() {

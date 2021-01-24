@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveUser } from "./redux/actions";
+import { getActiveUser } from "./redux/user/actions";
 import NotFound from "./notFound";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -10,6 +10,7 @@ import OtherProfile from "./app_components/otherProfile";
 import FindPeople from "./app_components/findPeople";
 import Friends from "./app_components/friends";
 import Account from "./app_components/account";
+import Map from "./app_components/map";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -41,10 +42,9 @@ export default function App() {
                             )}
                         />
                         <Route path="/users" render={() => <FindPeople />} />
-
                         <Route path="/friends" render={() => <Friends />} />
                         <Route path="/account" render={() => <Account />} />
-
+                        <Route path="/map" render={() => <Map />} />
                         <Route component={NotFound} />
                     </Switch>
                 </div>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getFriendList, acceptRequest, unfriend } from "../redux/actions";
+import { getFriendList, acceptRequest, unfriend } from "../redux/user/actions";
 import ProfilePic from "../components/profilePic";
 
 export default function Friends() {

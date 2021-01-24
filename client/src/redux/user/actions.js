@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "../../axios";
 
 export async function getActiveUser() {
     const { data } = await axios.get("/user/profile");
