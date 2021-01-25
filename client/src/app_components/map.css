@@ -32,3 +32,8 @@
 .temporary-marker span {
     background: #9989f5;
 }
+
+.popup-box {
+    height: 150px;
+    width: 200px;
+}

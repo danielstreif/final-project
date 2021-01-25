@@ -43,8 +43,7 @@ CREATE TABLE map_marker (
 CREATE TABLE marker_images (
    id SERIAL PRIMARY KEY,
    marker_id INT NOT NULL REFERENCES map_marker(id) ON DELETE CASCADE,
-   url VARCHAR(255),
-   description VARCHAR
+   url VARCHAR(255) NOT NULL
 );
 
 CREATE UNIQUE INDEX ON friendships (least(sender_id, recipient_id), greatest(sender_id, recipient_id));

@@ -5,28 +5,28 @@ const db = spicedPg(
 );
 
 module.exports.getAllMarker = () => {
-    return db.query(`SELECT id, user_id, long, lat FROM map_marker`);
+    return db.query(`SELECT * FROM map_marker`);
 };
 
 module.exports.getRecentMarker = () => {
-    return db.query(`SELECT id, user_id, long, lat FROM map_marker
+    return db.query(`SELECT * FROM map_marker
     ORDER BY id DESC LIMIT 3`);
 };
 
 module.exports.getMarkerByUser = (userId) => {
     return db.query(
-        `SELECT id, user_id, long, lat FROM map_marker
+        `SELECT * FROM map_marker
     WHERE user_id = $1`,
         [userId]
     );
 };
 
-module.exports.addMapMarker = (userId, long, lat) => {
+module.exports.addMapMarker = (userId, long, lat, title, description) => {
     return db.query(
-        `INSERT INTO map_marker (user_id, long, lat)
-    VALUES ($1, $2, $3)
-    RETURNING id, user_id, long, lat`,
-        [userId, long, lat]
+        `INSERT INTO map_marker (user_id, long, lat, title, description)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING id, user_id, long, lat, title, description`,
+        [userId, long, lat, title, description]
     );
 };
 
@@ -47,12 +47,12 @@ module.exports.deleteMapMarkerByUser = (userId) => {
     );
 };
 
-module.exports.addMarkerImages = (markerId, url, description) => {
+module.exports.addMarkerImages = (markerId, url) => {
     return db.query(
-        `INSERT INTO marker_images (marker_id, url, description)
-    VALUES ($1, $2, $3)
-    RETURNING id`,
-        [markerId, url, description]
+        `INSERT INTO marker_images (marker_id, url)
+    VALUES ($1, $2)
+    RETURNING url`,
+        [markerId, url]
     );
 };
 

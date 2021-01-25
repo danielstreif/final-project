@@ -67,8 +67,8 @@ export async function getMapMarker() {
     };
 }
 
-export async function addMapMarker(params) {
-    const { data } = await axios.post("/map/marker", params);
+export async function addMapMarker(formData) {
+    const { data } = await axios.post("/map/marker", formData);
     return {
         type: "ADD_MAP_MARKER",
         newMapMarker: data ,

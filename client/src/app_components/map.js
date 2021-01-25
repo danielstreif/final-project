@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMapMarker, addMapMarker, removeMapMarker } from "../redux/actions";
+import { getMapMarker, removeMapMarker } from "../redux/actions";
 import ReactMapGL, { Marker } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
+import MarkerUploader from "../components/markerUploader";
 
 import "./map.css";
 
@@ -31,16 +32,16 @@ export default function Map() {
         dispatch(getMapMarker());
     }, []);
 
-    const handleClick = (e) => {
+    const updateTempMarker = (e) => {
         setTempMarker({
             userId: activeUser.id,
             long: e.lngLat[0],
             lat: e.lngLat[1],
         });
+        setSelectedMarker(null);
     };
 
-    const saveMarker = () => {
-        dispatch(addMapMarker(tempMarker));
+    const cancelMarker = () => {
         setTempMarker(null);
     };
 
@@ -49,8 +50,8 @@ export default function Map() {
         setSelectedMarker(null);
     };
 
-    const openPopup = (markerIndex) => {
-        setSelectedMarker(markerIndex);
+    const openPopup = (index) => {
+        setSelectedMarker(index);
     };
 
     const closePopup = () => {
@@ -59,13 +60,22 @@ export default function Map() {
 
     return (
         <div className="map-container">
+            <div className="add-marker-box">
+                {!tempMarker && <p>Click anywhere on the map to add a trip.</p>}
+                {tempMarker && (
+                    <MarkerUploader
+                        cancelMarker={cancelMarker}
+                        newMarker={tempMarker}
+                    />
+                )}
+            </div>
             <ReactMapGL
                 ref={mapRef}
                 {...viewport}
                 width="100%"
                 height="100%"
                 onViewportChange={handleViewportChange}
-                onClick={handleClick}
+                onClick={updateTempMarker}
                 mapboxApiAccessToken={mapboxKey}
             >
                 <Geocoder
@@ -80,12 +90,13 @@ export default function Map() {
                     <Marker
                         longitude={tempMarker.long}
                         latitude={tempMarker.lat}
+                        draggable={true}
+                        onDragEnd={updateTempMarker}
                     >
                         <>
                             <div className="marker temporary-marker">
                                 <span></span>
                             </div>
-                            <button onClick={saveMarker}>Add</button>
                         </>
                     </Marker>
                 )}
@@ -94,7 +105,7 @@ export default function Map() {
                     mapMarker.map((marker, index) => {
                         return (
                             <MapMarker
-                                key={`marker-${index}`}
+                                key={index}
                                 index={index}
                                 marker={marker}
                                 openPopup={openPopup}

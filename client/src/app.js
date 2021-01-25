@@ -17,6 +17,7 @@ export default function App() {
     const activeUser = useSelector((state) => state.activeUser);
 
     useEffect(() => {
+        document.title = "tracks | trails";
         dispatch(getActiveUser());
     }, []);
 

@@ -1,4 +1,5 @@
 import { Popup } from "react-map-gl";
+import "./markerPopup.css";
 
 export default function MarkerPopup({ marker, closePopup, removeMarker }) {
     return (
@@ -10,8 +11,14 @@ export default function MarkerPopup({ marker, closePopup, removeMarker }) {
             closeOnClick={false}
             offsetTop={-30}
         >
-            <p>Test</p>
-            <button onClick={() => removeMarker(marker.id)}>Remove</button>
+            <div className="popup-box">
+                {marker.title != "undefined" && <p>{marker.title}</p>}
+                {marker.description != "undefined" && (
+                    <p>{marker.description}</p>
+                )}
+                {marker.url && <img className="popup-img" src={marker.url} alt={marker.title} />}
+                <button onClick={() => removeMarker(marker.id)}>Remove</button>
+            </div>
         </Popup>
     );
 }
