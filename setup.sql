@@ -35,8 +35,8 @@ CREATE TABLE map_marker (
    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
    title VARCHAR,
    description VARCHAR,
-   long INT NOT NULL,
-   lat INT NOT NULL,
+   long FLOAT NOT NULL,
+   lat FLOAT NOT NULL,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -11,11 +11,11 @@ router.get("/map/marker", (req, res) => {
         .catch((err) => console.log("Get map marker error: ", err));
 });
 
-router.post("/map/marker/new", (req, res) => {
-    const { userId, long, lat } = req.params;
+router.post("/map/marker", (req, res) => {
+    const { userId, long, lat } = req.body;
     db.addMapMarker(userId, long, lat)
         .then(({ rows }) => {
-            res.json(rows);
+            res.json(rows[0]);
         })
         .catch((err) => console.log("Add map marker error: ", err));
 });

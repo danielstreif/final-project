@@ -29,7 +29,7 @@ export default function Map() {
 
     const handleClick = (e) => {
         setTempMarker({
-            useId: activeUser.id,
+            userId: activeUser.id,
             long: e.lngLat[0],
             lat: e.lngLat[1],
         });
@@ -45,7 +45,8 @@ export default function Map() {
             <ReactMapGL
                 ref={mapRef}
                 {...viewport}
-                className="map"
+                width="100%"
+                height="100%"
                 onViewportChange={handleViewportChange}
                 onClick={handleClick}
                 mapboxApiAccessToken={mapboxKey}
@@ -67,11 +68,11 @@ export default function Map() {
                             <div className="marker temporary-marker">
                                 <span></span>
                             </div>
-                            {/* <button onClick={saveMarker}>Add</button> */}
+                            <button onClick={saveMarker}>Add</button>
                         </>
                     </Marker>
                 )}
-                {/* {mapMarker &&
+                {mapMarker &&
                     mapMarker.length > 0 &&
                     mapMarker.map((marker) => {
                         return (
@@ -85,7 +86,7 @@ export default function Map() {
                                 </div>
                             </Marker>
                         );
-                    })} */}
+                    })}
             </ReactMapGL>
         </div>
     );
