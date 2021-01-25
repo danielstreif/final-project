@@ -74,3 +74,11 @@ export async function addMapMarker(params) {
         newMapMarker: data ,
     };
 }
+
+export async function removeMapMarker(id) {
+    const { data } = await axios.get(`/map/marker/remove/${id}`);
+    return {
+        type: "REMOVE_MAP_MARKER",
+        id: data.id,
+    };
+}

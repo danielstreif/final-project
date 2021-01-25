@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMapMarker, addMapMarker } from "../redux/actions";
+import { getMapMarker, addMapMarker, removeMapMarker } from "../redux/actions";
 import ReactMapGL, { Marker } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 import MarkerPopup from "../components/markerPopup";
@@ -14,9 +14,9 @@ export default function Map() {
     const activeUser = useSelector((state) => state.activeUser);
     const mapMarker = useSelector((state) => state.mapMarker);
     const [viewport, setViewport] = useState({
-        latitude: 45.50884,
-        longitude: -73.58781,
-        zoom: 15,
+        latitude: 52.520008,
+        longitude: 13.404954,
+        zoom: 9,
     });
 
     const [tempMarker, setTempMarker] = useState();
@@ -42,6 +42,11 @@ export default function Map() {
     const saveMarker = () => {
         dispatch(addMapMarker(tempMarker));
         setTempMarker(null);
+    };
+
+    const removeMarker = (id) => {
+        dispatch(removeMapMarker(id));
+        setSelectedMarker(null);
     };
 
     const openPopup = (markerIndex) => {
@@ -98,9 +103,9 @@ export default function Map() {
                     })}
                 {selectedMarker && (
                     <MarkerPopup
-                        index={selectedMarker}
                         marker={mapMarker[selectedMarker]}
                         closePopup={closePopup}
+                        removeMarker={removeMarker}
                     />
                 )}
             </ReactMapGL>

@@ -20,4 +20,13 @@ router.post("/map/marker", (req, res) => {
         .catch((err) => console.log("Add map marker error: ", err));
 });
 
+router.get("/map/marker/remove/:id", (req, res) => {
+    const { id } = req.params;
+    db.deleteMapMarker(id)
+        .then(({ rows }) => {
+            res.json(rows[0]);
+        })
+        .catch((err) => console.log("Get remove marker error: ", err));
+});
+
 module.exports = router;

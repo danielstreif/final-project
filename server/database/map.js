@@ -33,7 +33,8 @@ module.exports.addMapMarker = (userId, long, lat) => {
 module.exports.deleteMapMarker = (markerId) => {
     return db.query(
         `DELETE FROM map_marker 
-        WHERE id = $1`,
+        WHERE id = $1
+        RETURNING id`,
         [markerId]
     );
 };

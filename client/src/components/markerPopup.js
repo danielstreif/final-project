@@ -1,6 +1,6 @@
 import { Popup } from "react-map-gl";
 
-export default function MarkerPopup({ index, marker, closePopup }) {
+export default function MarkerPopup({ marker, closePopup, removeMarker }) {
     return (
         <Popup
             latitude={marker.lat}
@@ -10,7 +10,8 @@ export default function MarkerPopup({ index, marker, closePopup }) {
             closeOnClick={false}
             offsetTop={-30}
         >
-            <p>{index}</p>
+            <p>Test</p>
+            <button onClick={() => removeMarker(marker.id)}>Remove</button>
         </Popup>
     );
 }

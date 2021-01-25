@@ -78,5 +78,12 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "REMOVE_MAP_MARKER") {
+        state = {
+            ...state,
+            mapMarker: state.mapMarker.filter((marker) => marker.id != action.id),
+        };
+    }
+
     return state;
 }
