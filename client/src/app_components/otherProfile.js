@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOtherUser } from "../redux/user/actions";
+import { getOtherUser } from "../redux/actions";
 import ProfilePic from "../components/profilePic";
 import FriendButton from "../components/friendButton";
 

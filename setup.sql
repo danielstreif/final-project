@@ -1,6 +1,8 @@
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS reset_codes;
-DROP TABLE IF EXISTS friendships;
+-- DROP TABLE IF EXISTS users CASCADE;
+-- DROP TABLE IF EXISTS reset_codes;
+-- DROP TABLE IF EXISTS friendships;
+-- DROP TABLE IF EXISTS map_marker CASCADE;
+-- DROP TABLE IF EXISTS marker_images;
 
 CREATE TABLE users(
    id SERIAL PRIMARY KEY,
@@ -26,6 +28,23 @@ CREATE TABLE friendships (
    recipient_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
    accepted BOOLEAN DEFAULT false,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE map_marker (
+   id SERIAL PRIMARY KEY,
+   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+   title VARCHAR,
+   description VARCHAR,
+   long INT NOT NULL,
+   lat INT NOT NULL,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE marker_images (
+   id SERIAL PRIMARY KEY,
+   marker_id INT NOT NULL REFERENCES map_marker(id) ON DELETE CASCADE,
+   url VARCHAR(255),
+   description VARCHAR
 );
 
 CREATE UNIQUE INDEX ON friendships (least(sender_id, recipient_id), greatest(sender_id, recipient_id));

@@ -1,4 +1,4 @@
-import axios from "../../axios";
+import axios from "../axios";
 
 export async function getActiveUser() {
     const { data } = await axios.get("/user/profile");
@@ -57,4 +57,20 @@ export async function unfriend(otherId) {
             id: otherId,
         };
     }
+}
+
+export async function getMapMarker() {
+    const { data } = await axios.get("/map/marker");
+    return {
+        type: "GET_MAP_MARKER",
+        mapMarker: { ...data },
+    };
+}
+
+export async function addMapMarker(params) {
+    const { data } = await axios.post("/map/marker/new", params);
+    return {
+        type: "ADD_MAP_MARKER",
+        newMapMarker: { ...data },
+    };
 }

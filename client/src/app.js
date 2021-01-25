@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getActiveUser } from "./redux/user/actions";
+import { getActiveUser } from "./redux/actions";
 import NotFound from "./notFound";
 import Header from "./components/header";
 import Footer from "./components/footer";

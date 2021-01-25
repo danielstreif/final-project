@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProfilePic } from "../redux/user/actions";
+import { updateProfilePic } from "../redux/actions";
 import axios from "../axios";
 
 export default function Uploader({ toggleModal }) {

@@ -1,14 +1,15 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMapMarker, addMapMarker } from "../redux/map/actions";
+import { getMapMarker, addMapMarker } from "../redux/actions";
 import ReactMapGL, { Marker } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
-import CustomMarker from "../components/customMarker";
+
 import "./map.css";
 
 export default function Map() {
     const dispatch = useDispatch();
     const mapboxKey = useSelector((state) => state.activeUser.mapboxKey);
+    const activeUser = useSelector((state) => state.activeUser);
     const mapMarker = useSelector((state) => state.mapMarker);
     const [viewport, setViewport] = useState({
         latitude: 45.50884,
@@ -28,8 +29,9 @@ export default function Map() {
 
     const handleClick = (e) => {
         setTempMarker({
-            longitude: e.lngLat[0],
-            latitude: e.lngLat[1],
+            useId: activeUser.id,
+            long: e.lngLat[0],
+            lat: e.lngLat[1],
         });
     };
 
@@ -39,7 +41,7 @@ export default function Map() {
     };
 
     return (
-        <div style={{ height: "100vh" }}>
+        <div className="map-container">
             <ReactMapGL
                 ref={mapRef}
                 {...viewport}
@@ -55,26 +57,35 @@ export default function Map() {
                     onViewportChange={handleViewportChange}
                     mapboxApiAccessToken={mapboxKey}
                 />
-                <button onClick={saveMarker}>Add</button>
+
                 {tempMarker && (
                     <Marker
-                        longitude={tempMarker.longitude}
-                        latitude={tempMarker.latitude}
+                        longitude={tempMarker.long}
+                        latitude={tempMarker.lat}
                     >
-                        <div className="marker temporary-marker">
-                            <span></span>
-                        </div>
+                        <>
+                            <div className="marker temporary-marker">
+                                <span></span>
+                            </div>
+                            {/* <button onClick={saveMarker}>Add</button> */}
+                        </>
                     </Marker>
                 )}
-                {mapMarker.map((marker, index) => {
-                    return (
-                        <CustomMarker
-                            key={`marker-${index}`}
-                            index={index}
-                            marker={marker}
-                        />
-                    );
-                })}
+                {/* {mapMarker &&
+                    mapMarker.length > 0 &&
+                    mapMarker.map((marker) => {
+                        return (
+                            <Marker
+                                key={marker.id}
+                                longitude={marker.long}
+                                latitude={marker.lat}
+                            >
+                                <div className="marker">
+                                    <span></span>
+                                </div>
+                            </Marker>
+                        );
+                    })} */}
             </ReactMapGL>
         </div>
     );
