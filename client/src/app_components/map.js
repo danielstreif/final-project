@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMapMarker, addMapMarker } from "../redux/actions";
 import ReactMapGL, { Marker } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
+import MarkerPopup from "../components/markerPopup";
+import MapMarker from "../components/mapMarker";
 
 import "./map.css";
 
@@ -16,7 +18,9 @@ export default function Map() {
         longitude: -73.58781,
         zoom: 15,
     });
+
     const [tempMarker, setTempMarker] = useState();
+    const [selectedMarker, setSelectedMarker] = useState(null);
     const mapRef = useRef();
     const handleViewportChange = useCallback(
         (newViewport) => setViewport(newViewport),
@@ -38,6 +42,14 @@ export default function Map() {
     const saveMarker = () => {
         dispatch(addMapMarker(tempMarker));
         setTempMarker(null);
+    };
+
+    const openPopup = (markerIndex) => {
+        setSelectedMarker(markerIndex);
+    };
+
+    const closePopup = () => {
+        setSelectedMarker(null);
     };
 
     return (
@@ -74,19 +86,23 @@ export default function Map() {
                 )}
                 {mapMarker &&
                     mapMarker.length > 0 &&
-                    mapMarker.map((marker) => {
+                    mapMarker.map((marker, index) => {
                         return (
-                            <Marker
-                                key={marker.id}
-                                longitude={marker.long}
-                                latitude={marker.lat}
-                            >
-                                <div className="marker">
-                                    <span></span>
-                                </div>
-                            </Marker>
+                            <MapMarker
+                                key={`marker-${index}`}
+                                index={index}
+                                marker={marker}
+                                openPopup={openPopup}
+                            />
                         );
                     })}
+                {selectedMarker && (
+                    <MarkerPopup
+                        index={selectedMarker}
+                        marker={mapMarker[selectedMarker]}
+                        closePopup={closePopup}
+                    />
+                )}
             </ReactMapGL>
         </div>
     );
