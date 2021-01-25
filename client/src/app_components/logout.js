@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 export default function Logout() {
-    const handleClick = () => {
+    const logout = () => {
         axios
             .get("/logout")
             .then(({ data }) => {
@@ -12,5 +12,5 @@ export default function Logout() {
             .catch((err) => console.log("Logout error: ", err));
     };
 
-    return <div onClick={handleClick}>Logout</div>;
+    return logout();
 }

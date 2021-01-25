@@ -59,67 +59,72 @@ export default function Map() {
     };
 
     return (
-        <div className="map-container">
-            <div className="add-marker-box">
-                {!tempMarker && <p>Click anywhere on the map to add a trip.</p>}
-                {tempMarker && (
-                    <MarkerUploader
-                        cancelMarker={cancelMarker}
-                        newMarker={tempMarker}
-                    />
-                )}
-            </div>
-            <ReactMapGL
-                ref={mapRef}
-                {...viewport}
-                width="100%"
-                height="100%"
-                onViewportChange={handleViewportChange}
-                onClick={updateTempMarker}
-                mapboxApiAccessToken={mapboxKey}
-            >
-                <Geocoder
-                    mapRef={mapRef}
-                    enableEventLogging={false}
-                    marker={false}
+        <div className="page-container">
+            <div className="preview-container"></div>
+            <div className="map-container">
+                <div className="add-marker-box">
+                    {!tempMarker && (
+                        <p>Click anywhere on the map to add a trip.</p>
+                    )}
+                    {tempMarker && (
+                        <MarkerUploader
+                            cancelMarker={cancelMarker}
+                            newMarker={tempMarker}
+                        />
+                    )}
+                </div>
+                <ReactMapGL
+                    ref={mapRef}
+                    {...viewport}
+                    width="100%"
+                    height="100%"
                     onViewportChange={handleViewportChange}
+                    onClick={updateTempMarker}
                     mapboxApiAccessToken={mapboxKey}
-                />
-
-                {tempMarker && (
-                    <Marker
-                        longitude={tempMarker.long}
-                        latitude={tempMarker.lat}
-                        draggable={true}
-                        onDragEnd={updateTempMarker}
-                    >
-                        <>
-                            <div className="marker temporary-marker">
-                                <span></span>
-                            </div>
-                        </>
-                    </Marker>
-                )}
-                {mapMarker &&
-                    mapMarker.length > 0 &&
-                    mapMarker.map((marker, index) => {
-                        return (
-                            <MapMarker
-                                key={index}
-                                index={index}
-                                marker={marker}
-                                openPopup={openPopup}
-                            />
-                        );
-                    })}
-                {selectedMarker && (
-                    <MarkerPopup
-                        marker={mapMarker[selectedMarker]}
-                        closePopup={closePopup}
-                        removeMarker={removeMarker}
+                >
+                    <Geocoder
+                        mapRef={mapRef}
+                        enableEventLogging={false}
+                        marker={false}
+                        onViewportChange={handleViewportChange}
+                        mapboxApiAccessToken={mapboxKey}
                     />
-                )}
-            </ReactMapGL>
+
+                    {tempMarker && (
+                        <Marker
+                            longitude={tempMarker.long}
+                            latitude={tempMarker.lat}
+                            draggable={true}
+                            onDragEnd={updateTempMarker}
+                        >
+                            <>
+                                <div className="marker temporary-marker">
+                                    <span></span>
+                                </div>
+                            </>
+                        </Marker>
+                    )}
+                    {mapMarker &&
+                        mapMarker.length > 0 &&
+                        mapMarker.map((marker, index) => {
+                            return (
+                                <MapMarker
+                                    key={index}
+                                    index={index}
+                                    marker={marker}
+                                    openPopup={openPopup}
+                                />
+                            );
+                        })}
+                    {selectedMarker && (
+                        <MarkerPopup
+                            marker={mapMarker[selectedMarker]}
+                            closePopup={closePopup}
+                            removeMarker={removeMarker}
+                        />
+                    )}
+                </ReactMapGL>
+            </div>
         </div>
     );
 }

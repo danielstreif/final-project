@@ -11,6 +11,7 @@ import FindPeople from "./app_components/findPeople";
 import Friends from "./app_components/friends";
 import Account from "./app_components/account";
 import Map from "./app_components/map";
+import Logout from "./app_components/logout";
 
 export default function App() {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ export default function App() {
                         <Route path="/friends" render={() => <Friends />} />
                         <Route path="/account" render={() => <Account />} />
                         <Route path="/map" render={() => <Map />} />
+                        <Route path="/logout" render={() => <Logout />} />
                         <Route component={NotFound} />
                     </Switch>
                 </div>

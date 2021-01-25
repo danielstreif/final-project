@@ -1,6 +1,18 @@
+.page-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+}
+
+.preview-container {
+    height: 100%;
+    width: 100%;
+}
+
 .map-container {
-    height: 600px;
-    width: 80%;
+    height: 70vh;
+    width: 100%;
 }
 
 .marker {
@@ -31,9 +43,4 @@
 
 .temporary-marker span {
     background: #9989f5;
-}
-
-.popup-box {
-    height: 150px;
-    width: 200px;
 }

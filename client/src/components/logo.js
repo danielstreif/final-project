@@ -1,9 +1,22 @@
 import { Link } from "react-router-dom";
+import { Typography, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+    logo: {
+        fontFamily: "Work Sans, sans-serif",
+        fontWeight: 600,
+        color: "#FFFEFE",
+        textAlign: "left",
+    },
+}));
 
 export default function Logo() {
-    return (
-        <Link to={"/map"}>
-            <h1 className="logo">tracks and trails</h1>
-        </Link>
+    const { logo } = useStyles();
+    const title = (
+        <Typography variant="h6" component="h1" className={logo}>
+            tracks and trails
+        </Typography>
     );
+
+    return <Link to={"/map"}>{title}</Link>;
 }
