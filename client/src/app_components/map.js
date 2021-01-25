@@ -6,6 +6,7 @@ import Geocoder from "react-map-gl-geocoder";
 import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
+import MarkerPreview from "../components/markerPreview";
 
 import "./map.css";
 
@@ -60,7 +61,22 @@ export default function Map() {
 
     return (
         <div className="page-container">
-            <div className="preview-container"></div>
+            <div className="preview-container">
+                <h2>Recently added</h2>
+                {mapMarker && mapMarker.length > 0 && (
+                    <>
+                        <MarkerPreview
+                            marker={mapMarker[mapMarker.length - 1]}
+                        />
+                        <MarkerPreview
+                            marker={mapMarker[mapMarker.length - 2]}
+                        />
+                        <MarkerPreview
+                            marker={mapMarker[mapMarker.length - 3]}
+                        />
+                    </>
+                )}
+            </div>
             <div className="map-container">
                 <div className="add-marker-box">
                     {!tempMarker && (

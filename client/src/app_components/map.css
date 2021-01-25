@@ -8,9 +8,13 @@
 .preview-container {
     height: 100%;
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 1fr 1fr 1fr;
 }
 
 .map-container {
+    padding-left: 20px;
     height: 70vh;
     width: 100%;
 }
