@@ -6,6 +6,7 @@ import Logo from "./logo";
 
 const useStyles = makeStyles(() => ({
     header: {
+        display: "flex",
         backgroundColor: "#400CCC",
         paddingRight: "100px",
         paddingLeft: "100px",
@@ -20,12 +21,15 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         justifyContent: "space-between",
     },
+    navbar: {
+        display: "flex",
+    },
 }));
 
 export default function Header() {
     const activeUser = useSelector((state) => state.activeUser);
     const newFriendRequest = useSelector((state) => state.openRequests);
-    const { header, menuButton, toolbar } = useStyles;
+    const { header, menuButton, toolbar, navbar } = useStyles();
 
     let friendsLabel = newFriendRequest ? (
         <span style={{ textDecoration: "underline" }}>Friends</span>
@@ -60,10 +64,12 @@ export default function Header() {
         return (
             <Toolbar className={toolbar}>
                 <Logo />
-                <div className="navbar-profile-pic">
-                    <ProfilePic props={activeUser} />
+                <div className={navbar}>
+                    {getMenuButtons()}
+                    <div className="navbar-profile-pic">
+                        <ProfilePic props={activeUser} />
+                    </div>
                 </div>
-                <div>{getMenuButtons()}</div>
             </Toolbar>
         );
     };
