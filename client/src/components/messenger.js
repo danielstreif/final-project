@@ -48,25 +48,30 @@ export default function Messenger({ userId, otherId }) {
                                     <div className="user-self">
                                         <span>{message.message}</span>
                                         <div className="chat-user">
+                                            <span className="user-info">
+                                                <p>You</p>
+                                                <p>{message.time}</p>
+                                            </span>
                                             <Link to="/">
-                                                <span className="user-info">
-                                                    <p>You</p>
-                                                    <p>{message.time}</p>
-                                                </span>
-
                                                 <div className="message-profile-pic">
                                                     <ProfilePic
                                                         props={message}
                                                     />
                                                 </div>
                                             </Link>
-                                            <img
-                                                src="/img/bin.png"
-                                                alt="delete"
-                                                onClick={() =>
-                                                    deleteMessage(message.id)
-                                                }
-                                            />
+                                            {message.message !=
+                                                "message deleted" && (
+                                                <img
+                                                    className="delete-icon"
+                                                    src="/img/bin.png"
+                                                    alt="delete"
+                                                    onClick={() =>
+                                                        deleteMessage(
+                                                            message.id
+                                                        )
+                                                    }
+                                                />
+                                            )}
                                         </div>
                                     </div>
                                 )}
@@ -80,14 +85,13 @@ export default function Messenger({ userId, otherId }) {
                                             <div className="message-profile-pic">
                                                 <ProfilePic props={message} />
                                             </div>
-                                            <span className="user-info">
-                                                <p>
-                                                    {message.first}{" "}
-                                                    {message.last}
-                                                </p>
-                                                <p>{message.time}</p>
-                                            </span>
                                         </Link>
+                                        <span className="user-info">
+                                            <p>
+                                                {message.first} {message.last}
+                                            </p>
+                                            <p>{message.time}</p>
+                                        </span>
                                     </div>
                                 )}
                             </li>
