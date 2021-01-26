@@ -3,6 +3,7 @@ import {
     receiveNewPrivateMessage,
     getOnlineUsers,
     messageSent,
+    messageDeleted,
     newFriendRequest,
 } from "./redux/actions";
 
@@ -22,6 +23,10 @@ export const init = (store) => {
 
         socket.on("display sent message", (msg) => {
             store.dispatch(messageSent(msg));
+        });
+
+        socket.on("message deleted", (msgId) => {
+            store.dispatch(messageDeleted(msgId));
         });
 
         socket.on("new message received", ({ msg, userId }) => {

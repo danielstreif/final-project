@@ -19,34 +19,6 @@ module.exports.getBasicUserInfo = (id) => {
     );
 };
 
-module.exports.getRecentChat = () => {
-    return db.query(
-        `SELECT users.id AS user, first, last, url, message, chat_messages.created_at, chat_messages.id
-        FROM chat_messages
-        LEFT JOIN users ON chat_messages.user_id = users.id
-        ORDER BY id DESC LIMIT 10`
-    );
-};
-
-module.exports.addChatMessage = (id, msg) => {
-    return db.query(
-        `INSERT INTO chat_messages (user_id, message)
-        VALUES ($1, $2)
-        RETURNING id`,
-        [id, msg]
-    );
-};
-
-module.exports.getNewMessage = (id) => {
-    return db.query(
-        `SELECT chat_messages.created_at, chat_messages.id, message, users.id AS user, first, last, url 
-        FROM chat_messages
-        LEFT JOIN users ON chat_messages.user_id = users.id
-        WHERE chat_messages.id = $1`,
-        [id]
-    );
-};
-
 module.exports.getPrivateChat = (ownId, otherId) => {
     return db.query(
         `SELECT users.id AS user, first, last, url, message, private_messages.created_at, private_messages.id FROM private_messages
@@ -72,6 +44,15 @@ module.exports.getNewPrivateMessage = (messageId) => {
         `SELECT users.id AS user, first, last, url, message, private_messages.created_at, private_messages.id FROM private_messages
         LEFT JOIN users ON private_messages.sender_id = users.id
         WHERE private_messages.id = $1`,
+        [messageId]
+    );
+};
+
+module.exports.deletePrivateMessage = (messageId) => {
+    return db.query(
+        `UPDATE private_messages
+        SET message = 'message deleted'
+        WHERE id = $1`,
         [messageId]
     );
 };

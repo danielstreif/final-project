@@ -28,10 +28,11 @@ export default function Header() {
     const newFriendRequest = useSelector((state) => state.openRequests);
     const { header, menuButton, toolbar } = useStyles;
 
-    let friendsLabel = "Friends";
-    useEffect(() => {
-        friendsLabel = newFriendRequest ? <b>Friends</b> : "Friends";
-    }, [newFriendRequest]);
+    let friendsLabel = newFriendRequest ? (
+        <span style={{ textDecoration: "underline" }}>Friends</span>
+    ) : (
+        "Friends"
+    );
 
     const menuData = [
         {

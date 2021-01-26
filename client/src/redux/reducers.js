@@ -72,23 +72,16 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "NEW_FRIEND_REQUEST") {
-        if (state.openRequests) {
-            state = {
-                ...state,
-                openRequests: [...state.openRequests, action.newOpenRequest],
-            };
-        } else {
-            state = {
-                ...state,
-                openRequests: action.newOpenRequest,
-            };
-        }
+        state = {
+            ...state,
+            openRequests: true,
+        };
     }
 
     if (action.type == "RESET_FRIEND_REQUESTS") {
         state = {
             ...state,
-            openRequests: null,
+            openRequests: false,
         };
     }
 
@@ -124,6 +117,22 @@ export default function reducer(state = {}, action) {
                 ...state.privateMessages,
                 action.sentPrivateMessage,
             ],
+        };
+    }
+
+    if (action.type == "MESSAGE_DELETED") {
+        state = {
+            ...state,
+            privateMessages: state.privateMessages.map((messageData) => {
+                if (messageData.id == action.deletedMessage) {
+                    return {
+                        ...messageData,
+                        message: "message deleted",
+                    };
+                } else {
+                    return messageData;
+                }
+            }),
         };
     }
 

@@ -103,6 +103,13 @@ export function messageSent(message) {
     };
 }
 
+export function messageDeleted(messageId) {
+    return {
+        type: "MESSAGE_DELETED",
+        deletedMessage: messageId,
+    };
+}
+
 export async function getMapMarker() {
     const { data } = await axios.get("/map/marker");
     return {

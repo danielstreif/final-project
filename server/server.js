@@ -100,20 +100,6 @@ io.on("connection", (socket) => {
         }
     });
 
-    db.getRecentChat()
-        .then(({ rows }) => {
-            for (let i in rows) {
-                rows[i].time = rows[i].created_at.toLocaleString();
-            }
-            const result = {
-                result: rows.sort((a, b) => {
-                    return a.id - b.id;
-                }),
-            };
-            socket.emit("get messages", result, userId);
-        })
-        .catch((err) => console.log("Get recent messages error: ", err));
-
     socket.on("friend request", (otherId) => {
         for (const key in socketIds) {
             if (socketIds[key] == otherId) {
@@ -160,19 +146,11 @@ io.on("connection", (socket) => {
             });
     });
 
-    socket.on("post message", (message) => {
-        db.addChatMessage(userId, message)
-            .then(({ rows }) => {
-                db.getNewMessage(rows[0].id)
-                    .then(({ rows }) => {
-                        const newMessage = rows[0];
-                        newMessage.time = newMessage.created_at.toLocaleString();
-                        io.emit("new message and user", newMessage);
-                    })
-                    .catch((err) =>
-                        console.log("Get new message error: ", err)
-                    );
+    socket.on("delete message", (messageId) => {
+        db.deletePrivateMessage(messageId)
+            .then(() => {
+                socket.emit("message deleted", messageId);
             })
-            .catch((err) => console.log("Post message error: ", err));
+            .catch((err) => console.log("Message deletion error: ", err));
     });
 });
