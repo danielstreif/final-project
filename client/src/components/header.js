@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Toolbar, Button, makeStyles } from "@material-ui/core";

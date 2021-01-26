@@ -1,7 +1,7 @@
 export default function ProfilePic({ props }) {
     let imageUrl = props.url;
 
-    if (imageUrl === null || imageUrl === undefined) {
+    if (imageUrl == null || imageUrl == undefined) {
         imageUrl = "/img/placeholder.png";
     }
 

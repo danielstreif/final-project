@@ -1,7 +1,7 @@
 export default function WelcomeLogo() {
     return (
         <div className="welcome-logo-container">
-            <h1>tracks and trails</h1>
+            <h1>Climber&apos;s Paradise</h1>
             <h2>Discover the outdoors.</h2>
         </div>
     );

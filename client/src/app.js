@@ -19,7 +19,7 @@ export default function App() {
     const activeUser = useSelector((state) => state.activeUser);
 
     useEffect(() => {
-        document.title = "tracks | trails";
+        document.title = "Climber's Paradise";
         dispatch(getActiveUser());
     }, []);
 

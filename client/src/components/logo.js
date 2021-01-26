@@ -14,7 +14,7 @@ export default function Logo() {
     const { logo } = useStyles();
     const title = (
         <Typography variant="h6" component="h1" className={logo}>
-            tracks and trails
+            Climber&apos;s Paradise
         </Typography>
     );
 

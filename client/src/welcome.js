@@ -7,7 +7,7 @@ import Footer from "./components/footer";
 
 export default function Welcome() {
     useEffect(() => {
-        document.title = "tracks | trails";
+        document.title = "Climber's Paradise";
     }, []);
 
     return (
