@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateBio } from "../redux/actions";
 import axios from "../axios";
 
 export default function BioEditor() {
-    const activeUser = useSelector((state) => state.activeUser);
+    const dispatch = useDispatch();
+    const bio = useSelector((state) => state.activeUser.bio);
     const [textareaVisible, setTextareaVisible] = useState(false);
-    const [draftBio, setDraftBio] = useState(activeUser.bio);
+    const [draftBio, setDraftBio] = useState(bio);
     const [error, setError] = useState(false);
 
     const handleChange = (e) => {
@@ -21,21 +22,20 @@ export default function BioEditor() {
                     setError(true);
                 }
                 if (data.success) {
-                    updateBio(draftBio);
+                    dispatch(updateBio(draftBio));
                     setError(false);
                     toggleTextarea();
                 }
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
                 setError(true);
             });
     };
     const toggleTextarea = () => {
-        setTextareaVisible(textareaVisible);
+        setTextareaVisible(!textareaVisible);
     };
     const resetTextarea = () => {
-        setDraftBio(activeUser.bio);
+        setDraftBio(bio);
         toggleTextarea();
     };
     const emptyMode = () => {
@@ -48,7 +48,7 @@ export default function BioEditor() {
     const displayMode = () => {
         return (
             <div className="bio-container">
-                <p className="bio-text">{activeUser.bio}</p>
+                <p className="bio-text">{bio}</p>
                 <button onClick={toggleTextarea}>Edit Bio</button>
             </div>
         );
@@ -68,8 +68,8 @@ export default function BioEditor() {
     return (
         <>
             {textareaVisible && editMode()}
-            {!textareaVisible && activeUser.bio && displayMode()}
-            {!textareaVisible && !activeUser.bio && emptyMode()}
+            {!textareaVisible && bio && displayMode()}
+            {!textareaVisible && !bio && emptyMode()}
         </>
     );
 }
