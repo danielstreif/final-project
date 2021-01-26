@@ -1,6 +1,7 @@
 -- DROP TABLE IF EXISTS users CASCADE;
 -- DROP TABLE IF EXISTS reset_codes;
 -- DROP TABLE IF EXISTS friendships;
+-- DROP TABLE IF EXISTS private_messages;
 -- DROP TABLE IF EXISTS map_marker CASCADE;
 -- DROP TABLE IF EXISTS marker_images;
 
@@ -27,6 +28,14 @@ CREATE TABLE friendships (
    sender_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
    recipient_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
    accepted BOOLEAN DEFAULT false,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE private_messages (
+   id SERIAL PRIMARY KEY,
+   sender_id INT REFERENCES users(id) ON DELETE SET NULL,
+   recipient_id INT REFERENCES users(id) ON DELETE SET NULL,
+   message VARCHAR NOT NULL,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

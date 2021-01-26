@@ -39,6 +39,10 @@ export default function Header() {
             href: "/users",
         },
         {
+            label: "Messages",
+            href: "/messages",
+        },
+        {
             label: "Logout",
             href: "/logout",
         },

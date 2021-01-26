@@ -107,6 +107,7 @@ router.post("/user/profile/edit", (req, res) => {
 
 router.get("/user/profile/:id", (req, res) => {
     const { id } = req.params;
+
     if (id == req.session.userId) {
         return res.json({ invalid: true });
     }

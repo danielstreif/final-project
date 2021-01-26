@@ -64,6 +64,30 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_ONLINE_USERS") {
+        state = {
+            ...state,
+            onlineUsers: action.onlineUsers,
+        };
+    }
+
+    if (action.type == "GET_PRIVATE_MESSAGES") {
+        state = {
+            ...state,
+            privateMessages: action.privateMessages,
+        };
+    }
+
+    if (action.type == "SEND_PRIVATE_MESSAGE") {
+        state = {
+            ...state,
+            privateMessages: [
+                ...state.privateMessages,
+                action.sentPrivateMessage,
+            ],
+        };
+    }
+
     if (action.type == "GET_MAP_MARKER") {
         state = {
             ...state,
@@ -81,7 +105,9 @@ export default function reducer(state = {}, action) {
     if (action.type == "REMOVE_MAP_MARKER") {
         state = {
             ...state,
-            mapMarker: state.mapMarker.filter((marker) => marker.id != action.id),
+            mapMarker: state.mapMarker.filter(
+                (marker) => marker.id != action.id
+            ),
         };
     }
 

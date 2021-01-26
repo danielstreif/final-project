@@ -59,6 +59,32 @@ export async function unfriend(otherId) {
     }
 }
 
+export function getOnlineUsers(userArr) {
+    return {
+        type: "GET_ONLINE_USERS",
+        onlineUsers: userArr,
+    };
+}
+
+export async function getPrivateMessages(id) {
+    const { data } = await axios.get(`/user/messages/${id}`);
+    return {
+        type: "GET_PRIVATE_MESSAGES",
+        privateMessages: data.success,
+    };
+}
+
+export async function sendPrivateMessage(message, id) {
+    const { data } = await axios.post("/user/message", {
+        message: message,
+        otherId: id,
+    });
+    return {
+        type: "SEND_PRIVATE_MESSAGE",
+        sentPrivateMessage: data.success,
+    };
+}
+
 export async function getMapMarker() {
     const { data } = await axios.get("/map/marker");
     return {

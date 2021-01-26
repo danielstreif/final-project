@@ -8,31 +8,33 @@ export default function OtherProfile(props) {
     const dispatch = useDispatch();
     const otherUser = useSelector((state) => state.otherUser);
     const activeUser = useSelector((state) => state.activeUser);
+    const otherId = props.match.params.id;
 
     useEffect(() => {
-        const otherId = props.match.params.id;
         if (otherId === activeUser.id) {
             return props.history.push("/");
         }
         dispatch(getOtherUser(otherId));
-    }, []);
+    }, [otherId]);
 
-    if (!otherUser.id) {
+    if (otherUser == undefined) {
         return null;
     }
 
     return (
         <div className="profile-container">
-            <div className="profile-container-left">
-                <h2>
-                    {otherUser.first} {otherUser.last}
-                </h2>
-                <div className="bio-profile-pic">
-                    <ProfilePic props={otherUser} />
+            {otherUser.id == otherId && (
+                <div className="profile-container-left">
+                    <h2>
+                        {otherUser.first} {otherUser.last}
+                    </h2>
+                    <div className="bio-profile-pic">
+                        <ProfilePic props={otherUser} />
+                    </div>
+                    <p className="bio-text">{otherUser.bio}</p>
+                    <FriendButton otherId={otherUser.id} />
                 </div>
-                <p className="bio-text">{otherUser.bio}</p>
-                <FriendButton otherId={otherUser.id} />
-            </div>
+            )}
             <div className="profile-container-right">
                 <p>map and gallery?</p>
             </div>
