@@ -67,20 +67,12 @@ router.post("/user/profile/edit", (req, res) => {
     const userId = req.session.userId;
     const { first, last, email, password, deleteAcc } = req.body;
     if (deleteAcc) {
-        db.getWallPost(userId)
+        db.deleteUser(userId)
             .then(async ({ rows }) => {
-                for (let i in rows) {
-                    const filename = rows[i].url.replace(s3Url, "");
-                    await s3.delete(filename);
-                }
-            })
-            .then(() => {
-                db.deleteUser(userId).then(async ({ rows }) => {
-                    const filename = rows[0].url.replace(s3Url, "");
-                    await s3.delete(filename);
-                    req.session = null;
-                    res.json({ success: true });
-                });
+                const filename = rows[0].url.replace(s3Url, "");
+                await s3.delete(filename);
+                req.session = null;
+                res.json({ success: true });
             })
             .catch((err) => {
                 console.log("Account deletion error: ", err);

@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import ProfilePic from "../components/profilePic";
@@ -17,11 +18,13 @@ export default function Messages() {
         (state) => state.users && state.users.filter((user) => user.accepted)
     );
     const onlineUsers = useSelector((state) => state && state.onlineUsers);
-    const chatMessages = useSelector((state) => state && state.privateMessages);
+    const privateMessages = useSelector(
+        (state) => state && state.privateMessages
+    );
     const userId = useSelector((state) => state && state.idSelf);
+    const [otherId, setOtherId] = useState();
+    const [messagerActive, setMessager] = useState(false);
     const elemRef = useRef("");
-
-    // dispatch(getPrivateMessages(otherId));
 
     useEffect(() => {
         dispatch(getFriendList());
@@ -31,110 +34,133 @@ export default function Messages() {
         if (elemRef.current) {
             elemRef.current.scrollTop = elemRef.current.scrollHeight;
         }
-    }, [chatMessages]);
+    }, [privateMessages]);
 
-    // const handleKeyDown = (e) => {
-    //     if (e.key === "Enter") {
-    //         e.preventDefault();
-    //         dispatch(sendPrivateMessage(e.target.value, otherId));
-    //         e.target.value = null;
-    //     }
-    // };
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            dispatch(sendPrivateMessage(e.target.value, otherId));
+            e.target.value = null;
+        }
+    };
+
+    const startPrivateMessage = (id) => {
+        setOtherId(id);
+        setMessager(true);
+        dispatch(getPrivateMessages(id));
+    };
 
     if (!friends) {
         return <p>Loading</p>;
     }
 
-    console.log(onlineUsers);
-
     return (
         <>
-            <h2>Friends</h2>
-            <div className="user-group-container">
-                {!friends.length && (
-                    <p>Send out friend requests to connect with people!</p>
-                )}
-                {!!friends.length && (
-                    <ul className="user-list">
-                        {friends.map((friend) => (
-                            <li className="user-container" key={friend.id}>
-                                <Link
-                                    className="user-link"
-                                    to={`/users/${friend.id}`}
-                                >
-                                    <div className="friend-profile-pic">
-                                        <ProfilePic props={friend} />
-                                        {onlineUsers &&
-                                            onlineUsers.some(
-                                                (user) => user.id === friend.id
-                                            ) && (<div className="status online"></div>)}
-                                    </div>
-                                    <p>{`${friend.first} ${friend.last}`}</p>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
-            {/* <h2 className="title">Private Chatroom</h2>
-            <div className="outer-chat-container">
-                <ul className="chat-container" ref={elemRef}>
-                    {chatMessages.map((message) => (
-                        <li className="chat-field" key={message.id}>
-                            {message.user == userId && (
-                                <div className="user-self">
-                                    <span>{message.message}</span>
-                                    <Link className="chat-user" to="/">
-                                        <span className="user-info">
-                                            <p>You</p>
-                                            <p>{message.time}</p>
-                                        </span>
-
-                                        <div className="navbar-image">
-                                            <ProfilePic
-                                                first={message.first}
-                                                last={message.last}
-                                                url={message.url}
-                                            />
-                                        </div>
-                                    </Link>
-                                </div>
-                            )}
-                            {message.user != userId && (
-                                <div className="user-other">
-                                    <span>{message.message}</span>
-                                    <Link
-                                        className="chat-user"
-                                        to={`/users/${message.user}`}
+            <h2>Messages</h2>
+            <div className="page-container">
+                <div className="user-group-container">
+                    {!friends.length && (
+                        <p>Send out friend requests to connect with people!</p>
+                    )}
+                    {!!friends.length && (
+                        <ul className="user-list">
+                            {friends.map((friend) => (
+                                <li className="user-container" key={friend.id}>
+                                    <button
+                                        onClick={() =>
+                                            startPrivateMessage(friend.id)
+                                        }
                                     >
-                                        <div className="navbar-image">
-                                            <ProfilePic
-                                                first={message.first}
-                                                last={message.last}
-                                                url={message.url}
-                                            />
+                                        <div className="friend-profile-pic">
+                                            <ProfilePic props={friend} />
+                                            {onlineUsers &&
+                                                onlineUsers.some(
+                                                    (user) =>
+                                                        user.id === friend.id
+                                                ) && (
+                                                    <div className="status online"></div>
+                                                )}
                                         </div>
-                                        <span className="user-info">
-                                            <p>
-                                                {message.first} {message.last}
-                                            </p>
-                                            <p>{message.time}</p>
-                                        </span>
-                                    </Link>
-                                </div>
-                            )}
-                        </li>
-                    ))}
-                </ul>
+                                        <p>{`${friend.first} ${friend.last}`}</p>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+                {messagerActive && (
+                    <div className="messager">
+                        <div className="outer-chat-container">
+                            <ul className="inner-chat-container" ref={elemRef}>
+                                {privateMessages &&
+                                    privateMessages.map((message) => (
+                                        <li
+                                            className="chat-field"
+                                            key={message.id}
+                                        >
+                                            {message.user == userId && (
+                                                <div className="user-self">
+                                                    <span>
+                                                        {message.message}
+                                                    </span>
+                                                    <Link
+                                                        className="chat-user"
+                                                        to="/"
+                                                    >
+                                                        <span className="user-info">
+                                                            <p>You</p>
+                                                            <p>
+                                                                {message.time}
+                                                            </p>
+                                                        </span>
+
+                                                        <div className="message-profile-pic">
+                                                            <ProfilePic
+                                                                props={message}
+                                                            />
+                                                        </div>
+                                                    </Link>
+                                                </div>
+                                            )}
+                                            {message.user != userId && (
+                                                <div className="user-other">
+                                                    <span>
+                                                        {message.message}
+                                                    </span>
+                                                    <Link
+                                                        className="chat-user"
+                                                        to={`/users/${message.user}`}
+                                                    >
+                                                        <div className="message-profile-pic">
+                                                            <ProfilePic
+                                                                props={message}
+                                                            />
+                                                        </div>
+                                                        <span className="user-info">
+                                                            <p>
+                                                                {message.first}{" "}
+                                                                {message.last}
+                                                            </p>
+                                                            <p>
+                                                                {message.time}
+                                                            </p>
+                                                        </span>
+                                                    </Link>
+                                                </div>
+                                            )}
+                                        </li>
+                                    ))}
+                            </ul>
+                        </div>
+                        <textarea
+                            className="chat-textarea"
+                            onKeyDown={handleKeyDown}
+                            placeholder="Compose Message"
+                        />
+                        )
+                    </div>
+                )}
             </div>
-            <textarea
-                className="chat-textarea"
-                onKeyDown={handleKeyDown}
-                placeholder="Compose Message"
-            />
-            <Link className="chat-user" to={`/users/${otherId}`}>
-                <button className="standard-button">Back</button>
-            </Link> */}
         </>
     );
 }

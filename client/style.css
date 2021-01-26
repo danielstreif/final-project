@@ -20,6 +20,13 @@ li {
     top: 65px;
 }
 
+.page-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    height: 100%;
+}
+
 .profile-pic {
     border-radius: 50%;
     height: 100%;
