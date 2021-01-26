@@ -66,22 +66,40 @@ export function getOnlineUsers(userArr) {
     };
 }
 
+export function newFriendRequest(userInfo) {
+    return {
+        type: "NEW_FRIEND_REQUEST",
+        newOpenRequest: userInfo,
+    };
+}
+
+export function resetFriendRequests() {
+    return {
+        type: "RESET_FRIEND_REQUESTS",
+    };
+}
+
 export async function getPrivateMessages(id) {
     const { data } = await axios.get(`/user/messages/${id}`);
     return {
         type: "GET_PRIVATE_MESSAGES",
         privateMessages: data.success,
+        privateCorrespondent: data.otherId,
     };
 }
 
-export async function sendPrivateMessage(message, id) {
-    const { data } = await axios.post("/user/message", {
-        message: message,
-        otherId: id,
-    });
+export function receiveNewPrivateMessage(msg, userId) {
     return {
-        type: "SEND_PRIVATE_MESSAGE",
-        sentPrivateMessage: data.success,
+        type: "RECEIVE_PRIVATE_MESSAGE",
+        newPrivateMessage: msg,
+        senderId: userId,
+    };
+}
+
+export function messageSent(message) {
+    return {
+        type: "MESSAGE_SENT",
+        sentPrivateMessage: message,
     };
 }
 
@@ -89,7 +107,7 @@ export async function getMapMarker() {
     const { data } = await axios.get("/map/marker");
     return {
         type: "GET_MAP_MARKER",
-        mapMarker: [ ...data ],
+        mapMarker: [...data],
     };
 }
 
@@ -97,7 +115,7 @@ export async function addMapMarker(formData) {
     const { data } = await axios.post("/map/marker", formData);
     return {
         type: "ADD_MAP_MARKER",
-        newMapMarker: data ,
+        newMapMarker: data,
     };
 }
 

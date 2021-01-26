@@ -22,6 +22,9 @@ export default function Messages() {
         (state) => state && state.privateMessages
     );
     const userId = useSelector((state) => state && state.idSelf);
+    const messageNotification = useSelector(
+        (state) => state && state.messageNotification
+    );
     const [otherId, setOtherId] = useState();
     const [messagerActive, setMessager] = useState(false);
     const elemRef = useRef("");
@@ -39,8 +42,13 @@ export default function Messages() {
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-            dispatch(sendPrivateMessage(e.target.value, otherId));
-            e.target.value = null;
+            if (e.target.value) {
+                socket.emit("new message outgoing", {
+                    msg: e.target.value,
+                    otherId: Number(otherId),
+                });
+                e.target.value = null;
+            }
         }
     };
 
@@ -79,6 +87,17 @@ export default function Messages() {
                                                         user.id === friend.id
                                                 ) && (
                                                     <div className="status online"></div>
+                                                )}
+                                            {messageNotification &&
+                                                onlineUsers &&
+                                                onlineUsers.some(
+                                                    (user) =>
+                                                        user.id ==
+                                                        messageNotification
+                                                ) && (
+                                                    <div className="message-note">
+                                                        new message
+                                                    </div>
                                                 )}
                                         </div>
                                         <p>{`${friend.first} ${friend.last}`}</p>

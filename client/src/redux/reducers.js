@@ -71,14 +71,53 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "NEW_FRIEND_REQUEST") {
+        if (state.openRequests) {
+            state = {
+                ...state,
+                openRequests: [...state.openRequests, action.newOpenRequest],
+            };
+        } else {
+            state = {
+                ...state,
+                openRequests: action.newOpenRequest,
+            };
+        }
+    }
+
+    if (action.type == "RESET_FRIEND_REQUESTS") {
+        state = {
+            ...state,
+            openRequests: null,
+        };
+    }
+
     if (action.type == "GET_PRIVATE_MESSAGES") {
         state = {
             ...state,
             privateMessages: action.privateMessages,
+            privateCorrspondant: action.privateCorrespondent,
         };
     }
 
-    if (action.type == "SEND_PRIVATE_MESSAGE") {
+    if (action.type == "RECEIVE_PRIVATE_MESSAGE") {
+        if (state.privateCorrespondent == action.senderId) {
+            return (state = {
+                ...state,
+                privateMessages: [
+                    ...state.privateMessages,
+                    action.newPrivateMessage,
+                ],
+            });
+        } else {
+            return (state = {
+                ...state,
+                messageNotification: action.senderId,
+            });
+        }
+    }
+
+    if (action.type == "MESSAGE_SENT") {
         state = {
             ...state,
             privateMessages: [

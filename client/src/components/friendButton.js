@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "../axios";
+import { socket } from "../socket";
 
 export default function FriendButton({ otherId }) {
     const [buttonText, setButtonText] = useState();
@@ -26,6 +27,9 @@ export default function FriendButton({ otherId }) {
     const handleClick = (e) => {
         e.preventDefault();
         const action = e.target.value;
+        if (action == "Add Friend") {
+            socket.emit("friend request", Number(otherId));
+        }
         axios
             .post(`/friendship-action/${action}/${otherId}`)
             .then(({ data }) => {

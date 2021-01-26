@@ -1,5 +1,10 @@
 import io from "socket.io-client";
-import { getMessages, newMessage, getOnlineUsers } from "./redux/actions";
+import {
+    receiveNewPrivateMessage,
+    getOnlineUsers,
+    messageSent,
+    newFriendRequest,
+} from "./redux/actions";
 
 export let socket;
 
@@ -11,12 +16,16 @@ export const init = (store) => {
             store.dispatch(getOnlineUsers(userArr));
         });
 
-        // socket.on("get messages", (msgs, userId) => {
-        //     store.dispatch(getMessages(msgs, userId));
-        // });
+        socket.on("friend request received", (userInfo) => {
+            store.dispatch(newFriendRequest(userInfo));
+        });
 
-        // socket.on("new message and user", (msg) => {
-        //     store.dispatch(newMessage(msg));
-        // });
+        socket.on("display sent message", (msg) => {
+            store.dispatch(messageSent(msg));
+        });
+
+        socket.on("new message received", ({ msg, userId }) => {
+            store.dispatch(receiveNewPrivateMessage(msg, userId));
+        });
     }
 };

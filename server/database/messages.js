@@ -11,6 +11,14 @@ module.exports.getOnlineUsers = (userArr) => {
     );
 };
 
+module.exports.getBasicUserInfo = (id) => {
+    return db.query(
+        `SELECT id, first, last, url FROM users
+        WHERE id = $1`,
+        [id]
+    );
+};
+
 module.exports.getRecentChat = () => {
     return db.query(
         `SELECT users.id AS user, first, last, url, message, chat_messages.created_at, chat_messages.id

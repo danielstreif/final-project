@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Toolbar, Button, makeStyles } from "@material-ui/core";
@@ -24,14 +25,21 @@ const useStyles = makeStyles(() => ({
 
 export default function Header() {
     const activeUser = useSelector((state) => state.activeUser);
+    const newFriendRequest = useSelector((state) => state.openRequests);
     const { header, menuButton, toolbar } = useStyles;
+
+    let friendsLabel = "Friends";
+    useEffect(() => {
+        friendsLabel = newFriendRequest ? <b>Friends</b> : "Friends";
+    }, [newFriendRequest]);
+
     const menuData = [
         {
             label: "Profile",
             href: "/",
         },
         {
-            label: "Friends",
+            label: friendsLabel,
             href: "/friends",
         },
         {

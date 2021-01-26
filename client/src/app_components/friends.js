@@ -1,7 +1,12 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getFriendList, acceptRequest, unfriend } from "../redux/actions";
+import {
+    getFriendList,
+    acceptRequest,
+    unfriend,
+    resetFriendRequests,
+} from "../redux/actions";
 import ProfilePic from "../components/profilePic";
 
 export default function Friends() {
@@ -26,6 +31,7 @@ export default function Friends() {
 
     useEffect(() => {
         dispatch(getFriendList());
+        dispatch(resetFriendRequests());
     }, []);
 
     if (!friends || !requests || !pending) {

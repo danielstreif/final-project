@@ -114,6 +114,52 @@ io.on("connection", (socket) => {
         })
         .catch((err) => console.log("Get recent messages error: ", err));
 
+    socket.on("friend request", (otherId) => {
+        for (const key in socketIds) {
+            if (socketIds[key] == otherId) {
+                db.getBasicUserInfo(otherId)
+                    .then(({ rows }) => {
+                        io.sockets.sockets
+                            .get(key)
+                            .emit("friend request received", {
+                                fromUser: rows[0],
+                            });
+                    })
+                    .catch((err) =>
+                        console.log("Receive friend request error: ", err)
+                    );
+            }
+        }
+    });
+
+    socket.on("new message outgoing", ({ msg, otherId }) => {
+        db.addPrivateMessage(userId, otherId, msg)
+            .then(({ rows }) => {
+                db.getNewPrivateMessage(rows[0].id)
+                    .then(({ rows }) => {
+                        const newMessage = rows[0];
+                        newMessage.time = newMessage.created_at.toLocaleString();
+                        for (const key in socketIds) {
+                            if (socketIds[key] == otherId) {
+                                io.sockets.sockets
+                                    .get(key)
+                                    .emit("new message received", {
+                                        fromUser: userId,
+                                        msg: newMessage,
+                                    });
+                            }
+                        }
+                        socket.emit("display sent message", newMessage);
+                    })
+                    .catch((err) =>
+                        console.log("Get new message error: ", err)
+                    );
+            })
+            .catch((err) => {
+                console.log("Send private message error: ", err);
+            });
+    });
+
     socket.on("post message", (message) => {
         db.addChatMessage(userId, message)
             .then(({ rows }) => {
