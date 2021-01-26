@@ -80,11 +80,25 @@ io.on("connection", (socket) => {
     onlineUsersMultiple.push(userId);
     onlineUsersSingle = [...new Set(onlineUsersMultiple)];
 
-    db.getOnlineUsers(onlineUsersSingle)
-        .then(({ rows }) => {
-            io.sockets.emit("users online", rows);
-        })
-        .catch((err) => console.log("Get online users error: ", err));
+    const updateOnlineUsers = () => {
+        db.getOnlineUsers(onlineUsersSingle)
+            .then(({ rows }) => {
+                io.sockets.emit("users online", rows);
+            })
+            .catch((err) => console.log("Get online users error: ", err));
+    };
+
+    updateOnlineUsers();
+
+    socket.on("disconnect", () => {
+        delete socketIds[socket.id];
+        const index = onlineUsersMultiple.indexOf(userId);
+        if (index >= 0) {
+            onlineUsersMultiple.splice(index, 1);
+            onlineUsersSingle = [...new Set(onlineUsersMultiple)];
+            return updateOnlineUsers();
+        }
+    });
 
     db.getRecentChat()
         .then(({ rows }) => {

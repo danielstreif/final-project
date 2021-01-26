@@ -1,0 +1,16 @@
+friend-profile-pic {
+    position: relative;
+}
+
+.status {
+    position: relative;
+    top: -20px;
+    left: 70px;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+}
+
+.online {
+    background-color: rgb(50, 205, 89);
+}

@@ -9,6 +9,8 @@ import {
     getFriendList,
 } from "../redux/actions";
 
+import "./messages.css";
+
 export default function Messages() {
     const dispatch = useDispatch();
     const friends = useSelector(
@@ -62,11 +64,12 @@ export default function Messages() {
                                 >
                                     <div className="friend-profile-pic">
                                         <ProfilePic props={friend} />
+                                        {onlineUsers &&
+                                            onlineUsers.some(
+                                                (user) => user.id === friend.id
+                                            ) && (<div className="status online"></div>)}
                                     </div>
                                     <p>{`${friend.first} ${friend.last}`}</p>
-                                    {onlineUsers && onlineUsers.indexOf(friend.id) >= 0 && (
-                                        <p>user online</p>
-                                    )}
                                 </Link>
                             </li>
                         ))}
