@@ -47,13 +47,14 @@ router.post(
     uploader.single("image"),
     s3.upload,
     async (req, res) => {
-        const { userId, long, lat, title, description } = req.body;
+        const { userId, long, lat, title, description, category } = req.body;
         const { rows } = await db.addMapMarker(
             userId,
             long,
             lat,
             title,
-            description
+            description,
+            category
         );
         const data = rows[0];
         let newUrl;

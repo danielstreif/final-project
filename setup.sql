@@ -46,6 +46,7 @@ CREATE TABLE map_marker (
    description VARCHAR,
    long FLOAT NOT NULL,
    lat FLOAT NOT NULL,
+   category VARCHAR NOT NULL,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

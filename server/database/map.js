@@ -8,11 +8,6 @@ module.exports.getAllMarker = () => {
     return db.query(`SELECT * FROM map_marker`);
 };
 
-module.exports.getRecentMarker = () => {
-    return db.query(`SELECT * FROM map_marker
-    ORDER BY id DESC LIMIT 3`);
-};
-
 module.exports.getMarkerByUser = (userId) => {
     return db.query(
         `SELECT * FROM map_marker
@@ -21,12 +16,12 @@ module.exports.getMarkerByUser = (userId) => {
     );
 };
 
-module.exports.addMapMarker = (userId, long, lat, title, description) => {
+module.exports.addMapMarker = (userId, long, lat, title, description, category) => {
     return db.query(
-        `INSERT INTO map_marker (user_id, long, lat, title, description)
-    VALUES ($1, $2, $3, $4, $5)
+        `INSERT INTO map_marker (user_id, long, lat, title, description, category)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING id, user_id, long, lat, title, description`,
-        [userId, long, lat, title, description]
+        [userId, long, lat, title, description, category]
     );
 };
 

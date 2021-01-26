@@ -72,7 +72,7 @@ export default function Uploader({ toggleModal }) {
                     <label className="input-field" htmlFor="image">
                         {imgFileLabel}
                     </label>
-                    <button onClick={uploadImage}>Upload New Image</button>
+                    <img src="/img/upload.png" onClick={uploadImage} />
                     {imageUrl && (
                         <button onClick={deleteImage}>
                             Delete Current Image

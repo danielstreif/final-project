@@ -28,6 +28,9 @@ export default function Map() {
         (newViewport) => setViewport(newViewport),
         []
     );
+    const [boulder, setBoulder] = useState(true);
+    const [sport, setSport] = useState(true);
+    const [trad, setTrad] = useState(true);
 
     useEffect(() => {
         dispatch(getMapMarker());
@@ -59,10 +62,63 @@ export default function Map() {
         setSelectedMarker(null);
     };
 
+    const setBoulderStat = () => {
+        setBoulder(!boulder);
+    };
+
+    const setSportStat = () => {
+        setSport(!sport);
+    };
+
+    const setTradStat = () => {
+        setTrad(!trad);
+    };
+
     return (
         <div className="page-container">
             <div className="preview-container">
                 <h2>Recently added</h2>
+                <div className="select-category">
+                    <input
+                        type="checkbox"
+                        id="boulder"
+                        name="boulder"
+                        value="boulder"
+                        onClick={setBoulderStat}
+                    />
+                    <label
+                        className={`${boulder ? "" : "active"}`}
+                        htmlFor="boulder"
+                    >
+                        {" "}
+                        Bouldering
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="sport"
+                        name="sport"
+                        value="sport"
+                        onClick={setSportStat}
+                    />
+                    <label
+                        className={`${sport ? "" : "active"}`}
+                        htmlFor="sport"
+                    >
+                        {" "}
+                        Sport Climbing
+                    </label>
+                    <input
+                        type="checkbox"
+                        id="trad"
+                        name="trad"
+                        value="trad"
+                        onClick={setTradStat}
+                    />
+                    <label className={`${trad ? "" : "active"}`} htmlFor="trad">
+                        {" "}
+                        Trad Climbing
+                    </label>
+                </div>
                 {mapMarker && mapMarker.length > 0 && (
                     <>
                         <MarkerPreview

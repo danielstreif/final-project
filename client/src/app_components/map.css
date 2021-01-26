@@ -41,3 +41,7 @@
 .temporary-marker span {
     background: #9989f5;
 }
+
+.select-category {
+    display: flex;
+}

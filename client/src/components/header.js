@@ -7,7 +7,7 @@ import Logo from "./logo";
 const useStyles = makeStyles(() => ({
     header: {
         display: "flex",
-        backgroundColor: "#400CCC",
+        backgroundColor: "black",
         paddingRight: "100px",
         paddingLeft: "100px",
     },
@@ -24,15 +24,30 @@ const useStyles = makeStyles(() => ({
     navbar: {
         display: "flex",
     },
+    notification: {
+        position: "absolute",
+        top: "20px",
+        left: "70px",
+        borderRadius: "50%",
+        height: "15px",
+        width: "15px",
+    },
 }));
 
 export default function Header() {
     const activeUser = useSelector((state) => state.activeUser);
     const newFriendRequest = useSelector((state) => state.openRequests);
-    const { header, menuButton, toolbar, navbar } = useStyles();
+    const { header, menuButton, toolbar, navbar, notification } = useStyles();
 
     let friendsLabel = newFriendRequest ? (
-        <span style={{ textDecoration: "underline" }}>Friends</span>
+        <span>
+            Friends
+            <img
+                src="/img/friend.svg"
+                alt="notification"
+                className={notification}
+            />
+        </span>
     ) : (
         "Friends"
     );

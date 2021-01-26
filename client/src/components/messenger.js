@@ -60,13 +60,13 @@ export default function Messenger({ userId, otherId }) {
                                                     />
                                                 </div>
                                             </Link>
-                                            <button
+                                            <img
+                                                src="/img/bin.png"
+                                                alt="delete"
                                                 onClick={() =>
                                                     deleteMessage(message.id)
                                                 }
-                                            >
-                                                delete
-                                            </button>
+                                            />
                                         </div>
                                     </div>
                                 )}

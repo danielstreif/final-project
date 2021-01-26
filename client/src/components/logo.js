@@ -22,7 +22,7 @@ export default function Logo() {
     const { logo, logoImg } = useStyles();
     const title = (
         <Typography variant="h6" component="h1" className={logo}>
-            <img className={logoImg} src="/img/logo.png" alt="logo" />
+            <img className={logoImg} src="/img/logo.svg" alt="logo" />
             Climber&apos;s Paradise
         </Typography>
     );

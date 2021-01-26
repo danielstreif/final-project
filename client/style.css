@@ -10,6 +10,8 @@ a {
 footer {
     position: absolute;
     bottom: 0;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 li {

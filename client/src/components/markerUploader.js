@@ -8,10 +8,15 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
     const [values, handleChange] = useStatefulFields();
     const [imgFile, setImgFile] = useState();
     const [imgFileLabel, setImgFileLabel] = useState("Choose file");
+    const [category, setCategory] = useState();
 
     const handleFileChange = (e) => {
         setImgFile(e.target.files[0]);
         setImgFileLabel(e.target.files[0].name);
+    };
+
+    const handleSelect = (e) => {
+        setCategory(e.target.value);
     };
 
     const saveMarker = (e) => {
@@ -23,6 +28,7 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
         formData.append("userId", newMarker.userId);
         formData.append("long", newMarker.long);
         formData.append("lat", newMarker.lat);
+        formData.append("category", category);
         dispatch(addMapMarker(formData));
         cancelMarker();
     };
@@ -50,6 +56,16 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     placeholder="Description"
                     type="text"
                 />
+                <label htmlFor="marker-type">Choose climbing category:</label>
+                <select
+                    name="marker-type"
+                    id="marker-type"
+                    onChange={handleSelect}
+                >
+                    <option value="boulder">Bouldering</option>
+                    <option value="sport">Sport Climbing</option>
+                    <option value="trad">Trad Climbing</option>
+                </select>
                 <input
                     name="image"
                     className="input-file"

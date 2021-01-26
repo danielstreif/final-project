@@ -39,10 +39,15 @@ export default function Messages() {
                         <button onClick={() => startPrivateMessage(friend.id)}>
                             <div className="friend-profile-pic">
                                 <ProfilePic props={friend} />
-                                {onlineUsers &&
-                                    onlineUsers.some(
-                                        (user) => user.id === friend.id
-                                    ) && <div className="status online"></div>}
+                                <div
+                                    className={`status ${
+                                        onlineUsers &&
+                                        onlineUsers.some(
+                                            (user) => user.id === friend.id
+                                        ) &&
+                                        "online"
+                                    }`}
+                                ></div>
                                 {messageNotification &&
                                     onlineUsers &&
                                     onlineUsers.some(
