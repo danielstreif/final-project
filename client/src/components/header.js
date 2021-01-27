@@ -1,6 +1,17 @@
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-import { AppBar, Toolbar, Button, makeStyles } from "@material-ui/core";
+import {
+    AppBar,
+    Toolbar,
+    Button,
+    makeStyles,
+    IconButton,
+    Drawer,
+    MenuItem,
+    Link,
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
 import ProfilePic from "./profilePic";
 import Logo from "./logo";
 
@@ -10,6 +21,9 @@ const useStyles = makeStyles(() => ({
         backgroundColor: "black",
         paddingRight: "76px",
         paddingLeft: "76px",
+        "@media (max-width: 900px)": {
+            paddingLeft: 0,
+        },
     },
     menuButton: {
         fontFamily: "Open Sans, sans-serif",
@@ -32,12 +46,40 @@ const useStyles = makeStyles(() => ({
         height: "15px",
         width: "15px",
     },
+    responsiveContainer: {
+        padding: "20px 30px",
+    },
 }));
 
 export default function Header() {
     const activeUser = useSelector((state) => state.activeUser);
     const newFriendRequest = useSelector((state) => state.openRequests);
-    const { header, menuButton, toolbar, navbar, notification } = useStyles();
+    const {
+        header,
+        menuButton,
+        toolbar,
+        navbar,
+        notification,
+        responsiveContainer,
+    } = useStyles();
+    const [state, setState] = useState({
+        mobileView: false,
+        responsiveAction: false,
+    });
+    const { mobileView, responsiveAction } = state;
+
+    useEffect(() => {
+        const setResponsiveness = () => {
+            return window.innerWidth < 900
+                ? setState((prevState) => ({ ...prevState, mobileView: true }))
+                : setState((prevState) => ({
+                      ...prevState,
+                      mobileView: false,
+                  }));
+        };
+        setResponsiveness();
+        window.addEventListener("resize", () => setResponsiveness());
+    }, []);
 
     let friendsLabel = newFriendRequest ? (
         <span>
@@ -89,6 +131,67 @@ export default function Header() {
         );
     };
 
+    const displayMobile = () => {
+        const handleResponsiveOpen = () => {
+            setState((prevState) => ({ ...prevState, responsiveAction: true }));
+        };
+        const handleResponsiveClose = () => {
+            setState((prevState) => ({
+                ...prevState,
+                responsiveAction: false,
+            }));
+        };
+
+        const getResponsiveChoices = () => {
+            return menuData.map(({ label, href }) => {
+                return (
+                    <Link
+                        key={label}
+                        {...{
+                            component: RouterLink,
+                            to: href,
+                            color: "inherit",
+                            style: { textDecoration: "none" },
+                            key: label,
+                        }}
+                    >
+                        <MenuItem>{label}</MenuItem>
+                    </Link>
+                );
+            });
+        };
+
+        return (
+            <Toolbar>
+                <IconButton
+                    {...{
+                        edge: "start",
+                        color: "inherit",
+                        "aria-label": "menu",
+                        "aria-haspopup": "true",
+                        onClick: handleResponsiveOpen,
+                    }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Drawer
+                    {...{
+                        anchor: "left",
+                        open: responsiveAction,
+                        onClose: handleResponsiveClose,
+                    }}
+                >
+                    <div className={responsiveContainer}>
+                        {getResponsiveChoices()}
+                    </div>
+                </Drawer>
+                <div>
+                    <Logo />
+                </div>
+            </Toolbar>
+        );
+    };
+
     const getMenuButtons = () => {
         return menuData.map(({ label, href }) => {
             return (
@@ -108,5 +211,9 @@ export default function Header() {
         });
     };
 
-    return <AppBar className={header}>{displayDesktop()}</AppBar>;
+    return (
+        <AppBar className={header}>
+            {mobileView ? displayMobile() : displayDesktop()}
+        </AppBar>
+    );
 }
