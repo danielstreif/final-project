@@ -90,4 +90,31 @@ router.get("/map/marker/remove/:id", (req, res) => {
         .catch((err) => console.log("Get remove marker error: ", err));
 });
 
+router.get("/map/comments/:id", (req, res) => {
+    const { id } = req.params;
+    db.getComments(id)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => console.log("Get comments error: ", err));
+});
+
+router.get("/map/comments/delete/:id", (req, res) => {
+    const { id } = req.params;
+    db.deleteComment(id)
+        .then(() => {
+            res.json({ success: true });
+        })
+        .catch((err) => console.log("Get comments error: ", err));
+});
+
+router.post("/map/comment", (req, res) => {
+    const { markerId, comment } = req.body;
+    db.addComment(markerId, req.session.userId, comment)
+        .then(({ rows }) => {
+            res.json({ success: rows[0] });
+        })
+        .catch((err) => console.log("Add comment error: ", err));
+});
+
 module.exports = router;

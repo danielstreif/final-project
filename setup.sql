@@ -4,6 +4,7 @@
 -- DROP TABLE IF EXISTS private_messages;
 -- DROP TABLE IF EXISTS map_marker CASCADE;
 -- DROP TABLE IF EXISTS marker_images;
+-- DROP TABLE IF EXISTS comments;
 
 CREATE TABLE users(
    id SERIAL PRIMARY KEY,
@@ -54,6 +55,14 @@ CREATE TABLE marker_images (
    id SERIAL PRIMARY KEY,
    marker_id INT NOT NULL REFERENCES map_marker(id) ON DELETE CASCADE,
    url VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE comments(
+   id SERIAL PRIMARY KEY,
+   marker_id INT NOT NULL REFERENCES map_marker(id) ON DELETE CASCADE,
+   author_id INT REFERENCES users(id) ON DELETE SET NULL,
+   comment TEXT NOT NULL,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE UNIQUE INDEX ON friendships (least(sender_id, recipient_id), greatest(sender_id, recipient_id));

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMarkerByUser, focusMarker } from "../redux/actions";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import Comments from "./comments";
 
 import "../app_components/profile.css";
 
@@ -30,7 +31,7 @@ export default function Wall({ id }) {
     }
 
     const modal = (
-        <div className="modal" onClick={toggleModal}>
+        <div className="modal">
             <div className="modal-img-box">
                 <div className="modal-header">
                     <h2>{activePost.title}</h2>
@@ -38,6 +39,7 @@ export default function Wall({ id }) {
                 </div>
                 <img src={activePost.url} alt={`Image ${activePost.id}`} />
                 <p className="standard-text">{activePost.description}</p>
+                <Comments markerId={activePost.id} />
             </div>
         </div>
     );

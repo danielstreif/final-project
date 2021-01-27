@@ -17,7 +17,14 @@ module.exports.getMarkerByUser = (userId) => {
     );
 };
 
-module.exports.addMapMarker = (userId, long, lat, title, description, category) => {
+module.exports.addMapMarker = (
+    userId,
+    long,
+    lat,
+    title,
+    description,
+    category
+) => {
     return db.query(
         `INSERT INTO map_marker (user_id, long, lat, title, description, category)
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -66,5 +73,33 @@ module.exports.deleteMarkerImages = (markerId) => {
         WHERE marker_id = $1
         RETURNING url`,
         [markerId]
+    );
+};
+
+module.exports.addComment = (markerId, authorId, comment) => {
+    return db.query(
+        `WITH inserted AS (INSERT INTO comments (marker_id, author_id, comment)
+        VALUES ($1, $2, $3)
+        RETURNING *) SELECT inserted.*, users.id AS user, first, last, url FROM inserted
+        JOIN users ON inserted.author_id = users.id`,
+        [markerId, authorId, comment]
+    );
+};
+
+module.exports.getComments = (markerId) => {
+    return db.query(
+        `SELECT comments.id, users.id AS user, first, last, url, comment, comments.created_at FROM comments
+        JOIN users ON comments.author_id = users.id
+        WHERE marker_id = $1
+        ORDER BY comments.id DESC`,
+        [markerId]
+    );
+};
+
+module.exports.deleteComment = (id) => {
+    return db.query(
+        `DELETE FROM comments 
+        WHERE id = $1`,
+        [id]
     );
 };
