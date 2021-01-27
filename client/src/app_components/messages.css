@@ -93,3 +93,8 @@ friend-profile-pic {
     width: 20px;
     cursor: pointer;
 }
+
+.deleted-message {
+    color: gray;
+    font-style: italic;
+}

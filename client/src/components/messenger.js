@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import ProfilePic from "../components/profilePic";
@@ -8,7 +7,6 @@ import { socket } from "../socket";
 import "../app_components/messages.css";
 
 export default function Messenger({ userId, otherId }) {
-    const dispatch = useDispatch();
     const privateMessages = useSelector(
         (state) => state && state.privateMessages
     );
@@ -46,7 +44,15 @@ export default function Messenger({ userId, otherId }) {
                             <li className="chat-field" key={message.id}>
                                 {message.user == userId && (
                                     <div className="user-self">
-                                        <span>{message.message}</span>
+                                        <span
+                                            className={
+                                                message.message ==
+                                                    "message deleted" &&
+                                                "deleted-message"
+                                            }
+                                        >
+                                            {message.message}
+                                        </span>
                                         <div className="chat-user">
                                             <span className="user-info">
                                                 <p>You</p>
@@ -77,7 +83,15 @@ export default function Messenger({ userId, otherId }) {
                                 )}
                                 {message.user != userId && (
                                     <div className="user-other">
-                                        <span>{message.message}</span>
+                                        <span
+                                            className={
+                                                message.message ==
+                                                    "message deleted" &&
+                                                "deleted-message"
+                                            }
+                                        >
+                                            {message.message}
+                                        </span>
                                         <Link
                                             className="chat-user"
                                             to={`/users/${message.user}`}

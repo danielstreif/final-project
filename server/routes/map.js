@@ -94,6 +94,9 @@ router.get("/map/comments/:id", (req, res) => {
     const { id } = req.params;
     db.getComments(id)
         .then(({ rows }) => {
+            for (let i in rows) {
+                rows[i].time = rows[i].created_at.toLocaleString();
+            }
             res.json(rows);
         })
         .catch((err) => console.log("Get comments error: ", err));
@@ -109,9 +112,10 @@ router.get("/map/comments/delete/:id", (req, res) => {
 });
 
 router.post("/map/comment", (req, res) => {
-    const { markerId, comment } = req.body;
-    db.addComment(markerId, req.session.userId, comment)
+    const { markerId, userId, comment } = req.body;
+    db.addComment(markerId, userId, comment)
         .then(({ rows }) => {
+            rows[0].time = rows[0].created_at.toLocaleString();
             res.json({ success: rows[0] });
         })
         .catch((err) => console.log("Add comment error: ", err));
