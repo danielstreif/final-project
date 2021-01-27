@@ -20,7 +20,7 @@ module.exports.addMapMarker = (userId, long, lat, title, description, category) 
     return db.query(
         `INSERT INTO map_marker (user_id, long, lat, title, description, category)
     VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING id, user_id, long, lat, title, description`,
+    RETURNING id, user_id, long, lat, title, description, category`,
         [userId, long, lat, title, description, category]
     );
 };

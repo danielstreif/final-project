@@ -9,9 +9,9 @@
 }
 
 .map-container {
-    padding-left: 20px;
+    margin-left: 20px;
     height: 70vh;
-    width: 100%;
+    max-width: 100%;
 }
 
 .marker {

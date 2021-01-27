@@ -7,7 +7,7 @@ import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
 import MarkerPreview from "../components/markerPreview";
-import { Input, InputLabel } from "@material-ui/core";
+import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 import "./map.css";
 
@@ -29,13 +29,20 @@ export default function Map() {
         (newViewport) => setViewport(newViewport),
         []
     );
-    const [boulder, setBoulder] = useState(true);
-    const [sport, setSport] = useState(true);
-    const [trad, setTrad] = useState(true);
+    const [filter, setFilter] = useState({
+        boulder: true,
+        sport: true,
+        trad: true,
+    });
 
     useEffect(() => {
         dispatch(getMapMarker());
     }, []);
+    
+    let filteredMarker;
+    if (mapMarker) {
+        filteredMarker = mapMarker.filter((marker) => filter[marker.category]);
+    }
 
     const updateTempMarker = (e) => {
         setTempMarker({
@@ -67,16 +74,12 @@ export default function Map() {
         setSelectedMarker(null);
     };
 
-    const setBoulderStat = () => {
-        setBoulder(!boulder);
-    };
-
-    const setSportStat = () => {
-        setSport(!sport);
-    };
-
-    const setTradStat = () => {
-        setTrad(!trad);
+    const setCategoryFilter = (e) => {
+        const category = e.target.name;
+        setFilter({
+            ...filter,
+            [category]: e.target.checked,
+        });
     };
 
     return (
@@ -84,58 +87,52 @@ export default function Map() {
             <div className="preview-container">
                 <h2>Recently added</h2>
                 <div className="select-category">
-                    <Input
-                        type="checkbox"
-                        id="boulder"
-                        name="boulder"
-                        value="boulder"
-                        onClick={setBoulderStat}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={filter.boulder}
+                                onChange={setCategoryFilter}
+                                name="boulder"
+                                color="primary"
+                            />
+                        }
+                        label="Bouldering"
                     />
-                    <InputLabel
-                        className={`${boulder ? "" : "active"}`}
-                        htmlFor="boulder"
-                    >
-                        Bouldering
-                    </InputLabel>
-                    <Input
-                        type="checkbox"
-                        id="sport"
-                        name="sport"
-                        value="sport"
-                        onClick={setSportStat}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={filter.sport}
+                                onChange={setCategoryFilter}
+                                name="sport"
+                                color="primary"
+                            />
+                        }
+                        label="Sport Climbing"
                     />
-                    <InputLabel
-                        className={`${sport ? "" : "active"}`}
-                        htmlFor="sport"
-                    >
-                        Sport Climbing
-                    </InputLabel>
-                    <Input
-                        type="checkbox"
-                        id="trad"
-                        name="trad"
-                        value="trad"
-                        onClick={setTradStat}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={filter.trad}
+                                onChange={setCategoryFilter}
+                                name="trad"
+                                color="primary"
+                            />
+                        }
+                        label="Trad Climbing"
                     />
-                    <InputLabel
-                        className={`${trad ? "" : "active"}`}
-                        htmlFor="trad"
-                    >
-                        Trad Climbing
-                    </InputLabel>
                 </div>
-                {mapMarker && mapMarker.length > 0 && (
+                {filteredMarker && filteredMarker.length > 0 && (
                     <>
                         <MarkerPreview
-                            marker={mapMarker[mapMarker.length - 1]}
+                            marker={filteredMarker[filteredMarker.length - 1]}
                             focus={focusMarker}
                         />
                         <MarkerPreview
-                            marker={mapMarker[mapMarker.length - 2]}
+                            marker={filteredMarker[filteredMarker.length - 2]}
                             focus={focusMarker}
                         />
                         <MarkerPreview
-                            marker={mapMarker[mapMarker.length - 3]}
+                            marker={filteredMarker[filteredMarker.length - 3]}
                             focus={focusMarker}
                         />
                     </>
@@ -187,9 +184,9 @@ export default function Map() {
                             </>
                         </Marker>
                     )}
-                    {mapMarker &&
-                        mapMarker.length > 0 &&
-                        mapMarker.map((marker, index) => {
+                    {filteredMarker &&
+                        filteredMarker.length > 0 &&
+                        filteredMarker.map((marker, index) => {
                             return (
                                 <MapMarker
                                     key={index}
@@ -201,7 +198,7 @@ export default function Map() {
                         })}
                     {selectedMarker && (
                         <MarkerPopup
-                            marker={mapMarker[selectedMarker]}
+                            marker={filteredMarker[selectedMarker]}
                             closePopup={closePopup}
                             removeMarker={removeMarker}
                         />

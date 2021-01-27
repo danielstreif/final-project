@@ -15,7 +15,7 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
     const dispatch = useDispatch();
     const [values, handleChange] = useStatefulFields();
     const [imgFile, setImgFile] = useState();
-    const [category, setCategory] = useState();
+    const [category, setCategory] = useState("");
 
     const handleFileChange = (e) => {
         setImgFile(e.target.files[0]);
