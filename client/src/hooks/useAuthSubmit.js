@@ -7,7 +7,7 @@ export default function useAuthSubmit(path, fields) {
     const handleSubmit = async () => {
         try {
             const { data } = await axios.post(path, fields);
-            data.success ? location.replace("/") : setError(true);
+            data.success ? location.replace("/profile") : setError(true);
         } catch (err) {
             setError(true);
         }

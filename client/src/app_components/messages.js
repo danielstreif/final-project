@@ -7,7 +7,6 @@ import { getPrivateMessages, getFriendList } from "../redux/actions";
 import { Button } from "@material-ui/core";
 
 import "./messages.css";
-import { LaunchTwoTone } from "@material-ui/icons";
 
 export default function Messages() {
     const dispatch = useDispatch();

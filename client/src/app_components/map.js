@@ -196,6 +196,7 @@ export default function Map() {
                             marker={filteredMarker[selectedMarker]}
                             closePopup={closePopup}
                             removeMarker={removeMarker}
+                            userId={activeUser.id}
                         />
                     )}
                 </ReactMapGL>

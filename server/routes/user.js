@@ -69,8 +69,10 @@ router.post("/user/profile/edit", (req, res) => {
     if (deleteAcc) {
         db.deleteUser(userId)
             .then(async ({ rows }) => {
-                const filename = rows[0].url.replace(s3Url, "");
-                await s3.delete(filename);
+                if (rows[0].url) {
+                    const filename = rows[0].url.replace(s3Url, "");
+                    await s3.delete(filename);
+                }
                 req.session = null;
                 res.json({ success: true });
             })
@@ -78,6 +80,8 @@ router.post("/user/profile/edit", (req, res) => {
                 console.log("Account deletion error: ", err);
                 res.json({ error: true });
             });
+    } else if (first.length == 0 || last.length == 0 || email.length == 0) {
+        return res.json({ error: true });
     } else if (password) {
         hash(password).then((hash) => {
             db.updateCredentialsPW(userId, first, last, email, hash)

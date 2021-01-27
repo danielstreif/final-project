@@ -47,9 +47,7 @@ export default function Account() {
             <div className="modal-box">
                 <div className="modal-header">
                     <h2>Confirm Account Deletion</h2>
-                    <Button onClick={toggleDelete}>
-                        X
-                    </Button>
+                    <Button onClick={toggleDelete}>X</Button>
                 </div>
                 <Button onClick={handleSubmit}>Delete Account</Button>
                 <Button onClick={toggleDelete}>Cancel</Button>
@@ -96,11 +94,11 @@ export default function Account() {
                     type="password"
                 />
                 <Button onClick={handleSubmit}>Submit Changes</Button>
-                <Link to="/profile">
-                    <Button>Cancel</Button>
-                </Link>
                 <Button onClick={toggleUpload}>Change Profile Picture</Button>
                 <Button onClick={toggleDelete}>Delete Account</Button>
+                <Link to="/profile">
+                    <Button>Back</Button>
+                </Link>
             </div>
         </>
     );

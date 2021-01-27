@@ -3,7 +3,7 @@ import { Button } from "@material-ui/core";
 
 import "./markerPopup.css";
 
-export default function MarkerPopup({ marker, closePopup, removeMarker }) {
+export default function MarkerPopup({ marker, closePopup, removeMarker, userId }) {
     return (
         <Popup
             latitude={marker.lat}
@@ -22,7 +22,14 @@ export default function MarkerPopup({ marker, closePopup, removeMarker }) {
                     />
                 )}
                 {marker.title != "undefined" && <p>{marker.title}</p>}
-                <Button onClick={() => removeMarker(marker.id)}>Remove</Button>
+                {userId == marker.user_id && (
+                    <img
+                        className="delete-icon"
+                        src="/img/bin.png"
+                        alt="delete"
+                        onClick={() => removeMarker(marker.id)}
+                    />
+                )}
             </div>
         </Popup>
     );
