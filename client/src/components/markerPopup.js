@@ -1,6 +1,7 @@
 import { Popup } from "react-map-gl";
-import "./markerPopup.css";
 import { Button } from "@material-ui/core";
+
+import "./markerPopup.css";
 
 export default function MarkerPopup({ marker, closePopup, removeMarker }) {
     return (

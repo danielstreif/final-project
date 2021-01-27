@@ -2,18 +2,18 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfilePic } from "../redux/actions";
 import axios from "../axios";
-import { FormControl, Button, Input, FormLabel } from "@material-ui/core";
+import { FormControl, Button, Input } from "@material-ui/core";
+
+import "./imgUploader.css";
 
 export default function Uploader({ toggleModal }) {
     const dispatch = useDispatch();
     const imageUrl = useSelector((state) => state.activeUser.url);
     const [imgFile, setImgFile] = useState();
-    const [imgFileLabel, setImgFileLabel] = useState("Choose file");
     const [error, setError] = useState(false);
 
     const handleChange = (e) => {
         setImgFile(e.target.files[0]);
-        setImgFileLabel(e.target.files[0].name);
     };
 
     const uploadImage = async (e) => {
@@ -70,10 +70,11 @@ export default function Uploader({ toggleModal }) {
                         accept="image/*"
                         onChange={handleChange}
                     />
-                    <FormLabel className="input-field" htmlFor="image">
-                        {imgFileLabel}
-                    </FormLabel>
-                    <img src="/img/upload.png" onClick={uploadImage} />
+                    <img
+                        className="icon"
+                        src="/img/upload.png"
+                        onClick={uploadImage}
+                    />
                     {imageUrl && (
                         <Button onClick={deleteImage}>
                             Delete Current Image
