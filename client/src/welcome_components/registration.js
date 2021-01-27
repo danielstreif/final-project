@@ -22,28 +22,24 @@ export default function Registration() {
                     <p className="error-message">Something went wrong...</p>
                 )}
                 <Input
-                    className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="first"
                     placeholder="First Name"
                     type="text"
                 />
                 <Input
-                    className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="last"
                     placeholder="Last Name"
                     type="text"
                 />
                 <Input
-                    className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="email"
                     placeholder="Email"
                     type="email"
                 />
                 <Input
-                    className="input-field"
                     onChange={(e) => handleChange(e)}
                     onKeyPress={(e) => handleKeyPress(e)}
                     name="password"

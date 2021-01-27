@@ -32,7 +32,6 @@ export default function FindPeople() {
             <div className="user-search-container">
                 <h2>Search users</h2>
                 <Input
-                    className="input-field"
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search by name"
                 />

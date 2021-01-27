@@ -66,7 +66,6 @@ export default function Reset() {
                     </p>
                 )}
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     name="email"
@@ -85,14 +84,12 @@ export default function Reset() {
                     <p className="error-message">Something went wrong...</p>
                 )}
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     name="code"
                     placeholder="Verification Code"
                     type="text"
                 />
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     name="password"

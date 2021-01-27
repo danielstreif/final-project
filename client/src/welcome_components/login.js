@@ -22,14 +22,12 @@ export default function Login() {
                     <p className="error-message">Something went wrong...</p>
                 )}
                 <Input
-                    className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="email"
                     placeholder="Email"
                     type="email"
                 />
                 <Input
-                    className="input-field"
                     onChange={(e) => handleChange(e)}
                     onKeyPress={(e) => handleKeyPress(e)}
                     name="password"

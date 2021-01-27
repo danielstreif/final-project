@@ -1,9 +1,11 @@
 .preview-container {
-    height: 100%;
+    max-height: 600px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50px 1fr 1fr 1fr;
+    grid-template-rows: auto auto 1fr 1fr 1fr;
+    overflow: scroll;
+    scrollbar-width: none;
 }
 
 .map-container {

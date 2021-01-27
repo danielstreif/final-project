@@ -67,7 +67,6 @@ export default function Account() {
                     <p className="error-message">Something went wrong...</p>
                 )}
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     name="first"
                     placeholder="First Name"
@@ -75,7 +74,6 @@ export default function Account() {
                     value={values.first}
                 />
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     name="last"
                     placeholder="Last Name"
@@ -83,7 +81,6 @@ export default function Account() {
                     value={values.last}
                 />
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     name="email"
@@ -92,7 +89,6 @@ export default function Account() {
                     value={values.email}
                 />
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     name="password"

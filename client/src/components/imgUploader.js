@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfilePic } from "../redux/actions";
 import axios from "../axios";
-import { FormControl, Button, Input } from "@material-ui/core";
+import { Button, Input } from "@material-ui/core";
 
 import "./imgUploader.css";
 
@@ -55,7 +55,7 @@ export default function Uploader({ toggleModal }) {
                 {error && (
                     <p className="error-message">Something went wrong...</p>
                 )}
-                <FormControl
+                <form
                     name="upload-form"
                     method="POST"
                     action="/user/image/upload"
@@ -80,7 +80,7 @@ export default function Uploader({ toggleModal }) {
                             Delete Current Image
                         </Button>
                     )}
-                </FormControl>
+                </form>
             </div>
         </div>
     );

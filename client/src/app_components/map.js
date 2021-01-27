@@ -7,7 +7,7 @@ import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
 import MarkerPreview from "../components/markerPreview";
-import { Input, FormLabel } from "@material-ui/core";
+import { Input, InputLabel } from "@material-ui/core";
 
 import "./map.css";
 
@@ -44,6 +44,10 @@ export default function Map() {
             lat: e.lngLat[1],
         });
         setSelectedMarker(null);
+    };
+
+    const focusMarker = (marker) => {
+        setViewport({ latitude: marker.lat, longitude: marker.long, zoom: 9 });
     };
 
     const cancelMarker = () => {
@@ -87,13 +91,12 @@ export default function Map() {
                         value="boulder"
                         onClick={setBoulderStat}
                     />
-                    <FormLabel
+                    <InputLabel
                         className={`${boulder ? "" : "active"}`}
                         htmlFor="boulder"
                     >
-                        {" "}
                         Bouldering
-                    </FormLabel>
+                    </InputLabel>
                     <Input
                         type="checkbox"
                         id="sport"
@@ -101,13 +104,12 @@ export default function Map() {
                         value="sport"
                         onClick={setSportStat}
                     />
-                    <FormLabel
+                    <InputLabel
                         className={`${sport ? "" : "active"}`}
                         htmlFor="sport"
                     >
-                        {" "}
                         Sport Climbing
-                    </FormLabel>
+                    </InputLabel>
                     <Input
                         type="checkbox"
                         id="trad"
@@ -115,24 +117,26 @@ export default function Map() {
                         value="trad"
                         onClick={setTradStat}
                     />
-                    <FormLabel
+                    <InputLabel
                         className={`${trad ? "" : "active"}`}
                         htmlFor="trad"
                     >
-                        {" "}
                         Trad Climbing
-                    </FormLabel>
+                    </InputLabel>
                 </div>
                 {mapMarker && mapMarker.length > 0 && (
                     <>
                         <MarkerPreview
                             marker={mapMarker[mapMarker.length - 1]}
+                            focus={focusMarker}
                         />
                         <MarkerPreview
                             marker={mapMarker[mapMarker.length - 2]}
+                            focus={focusMarker}
                         />
                         <MarkerPreview
                             marker={mapMarker[mapMarker.length - 3]}
+                            focus={focusMarker}
                         />
                     </>
                 )}
@@ -140,7 +144,10 @@ export default function Map() {
             <div className="map-container">
                 <div className="add-marker-box">
                     {!tempMarker && (
-                        <p>Click anywhere on the map to add a trip.</p>
+                        <p>
+                            Click anywhere on the map to add a new climbing
+                            spot.
+                        </p>
                     )}
                     {tempMarker && (
                         <MarkerUploader

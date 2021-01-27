@@ -2,7 +2,14 @@ import { useState } from "react";
 import useStatefulFields from "../hooks/useStatefulFields";
 import { useDispatch } from "react-redux";
 import { addMapMarker } from "../redux/actions";
-import { FormControl, Button, Input, Select, FormLabel } from "@material-ui/core";
+import {
+    Button,
+    Input,
+    Select,
+    InputLabel,
+    MenuItem,
+    FormControl,
+} from "@material-ui/core";
 
 export default function MarkerUploader({ cancelMarker, newMarker }) {
     const dispatch = useDispatch();
@@ -34,7 +41,7 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
 
     return (
         <div>
-            <FormControl
+            <form
                 name="upload-form"
                 method="POST"
                 action="/user/image/upload"
@@ -42,41 +49,41 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                 autoComplete="off"
             >
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     name="title"
                     placeholder="Title"
                     type="text"
                 />
                 <Input
-                    className="input-field"
                     onChange={handleChange}
                     name="description"
                     placeholder="Description"
                     type="text"
                 />
-                <FormLabel htmlFor="marker-type">
-                    Choose climbing category:
-                </FormLabel>
-                <Select
-                    name="marker-type"
-                    id="marker-type"
-                    onChange={handleSelect}
-                >
-                    <option value="boulder">Bouldering</option>
-                    <option value="sport">Sport Climbing</option>
-                    <option value="trad">Trad Climbing</option>
-                </Select>
                 <Input
                     name="image"
-                    className="input-file"
                     id="image"
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
                 />
+                <FormControl>
+                    <InputLabel id="marker-category">
+                        Climbing category:
+                    </InputLabel>
+                    <Select
+                        labelId="marker-category"
+                        id="select"
+                        value={category}
+                        onChange={handleSelect}
+                    >
+                        <MenuItem value="boulder">Bouldering</MenuItem>
+                        <MenuItem value="sport">Sport Climbing</MenuItem>
+                        <MenuItem value="trad">Trad Climbing</MenuItem>
+                    </Select>
+                </FormControl>
                 <Button onClick={saveMarker}>Add</Button>
-            </FormControl>
+            </form>
             <Button onClick={cancelMarker}>Cancel</Button>
         </div>
     );
