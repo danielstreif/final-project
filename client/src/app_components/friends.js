@@ -50,6 +50,7 @@ export default function Friends() {
                         <p>{`${user.first} ${user.last}`}</p>
                         {buttonArr.map((button, index) => (
                             <Button
+                                variant="outlined"
                                 key={index}
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -69,7 +70,9 @@ export default function Friends() {
         <>
             <h2>Open Friend Requests</h2>
             <div className="user-group-container">
-                {!requests.length && <p>No open requests</p>}
+                {!requests.length && (
+                    <p className="error-message">No open requests</p>
+                )}
                 {!!requests.length &&
                     userList(requests, [
                         { action: acceptRequest, text: "Accept" },
@@ -79,14 +82,18 @@ export default function Friends() {
             <h2>Friends</h2>
             <div className="user-group-container">
                 {!friends.length && (
-                    <p>Send out friend requests to connect with people!</p>
+                    <p className="error-message">
+                        Send out friend requests to connect with people!
+                    </p>
                 )}
                 {!!friends.length &&
                     userList(friends, [{ action: unfriend, text: "Unfriend" }])}
             </div>
             <h2>Pending Friend Requests</h2>
             <div className="user-group-container">
-                {!pending.length && <p>No pending requests</p>}
+                {!pending.length && (
+                    <p className="error-message">No pending requests</p>
+                )}
                 {!!pending.length &&
                     userList(pending, [{ action: unfriend, text: "Cancel" }])}
             </div>

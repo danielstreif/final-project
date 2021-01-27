@@ -8,6 +8,7 @@ import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
 import MarkerPreview from "../components/markerPreview";
 import MapStyleMenu from "../components/mapStyleMenu";
+import CommentModal from "../components/commentModal";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -23,7 +24,7 @@ export default function Map() {
     const [viewport, setViewport] = useState({
         latitude: focusMarker ? focusMarker.lat : 52.520008,
         longitude: focusMarker ? focusMarker.long : 13.404954,
-        zoom: 9,
+        zoom: 1,
     });
 
     const [tempMarker, setTempMarker] = useState();
@@ -39,6 +40,13 @@ export default function Map() {
         trad: true,
     });
     const [style, setStyle] = useState("mapbox://styles/mapbox/streets-v11");
+    const [showModal, setModal] = useState(false);
+    const [activePost, setPostActive] = useState({});
+
+    const toggleModal = (post) => {
+        setPostActive(post);
+        setModal(!showModal);
+    };
 
     useEffect(() => {
         dispatch(getMapMarker());
@@ -90,6 +98,12 @@ export default function Map() {
 
     return (
         <div className="page-container">
+            {showModal && (
+                <CommentModal
+                    activePost={activePost}
+                    toggleModal={toggleModal}
+                />
+            )}
             <div className="preview-container">
                 <h2>Recently added</h2>
                 <div className="select-category">
@@ -132,14 +146,17 @@ export default function Map() {
                         <MarkerPreview
                             marker={filteredMarker[filteredMarker.length - 1]}
                             focus={focusViewport}
+                            toggleModal={toggleModal}
                         />
                         <MarkerPreview
                             marker={filteredMarker[filteredMarker.length - 2]}
                             focus={focusViewport}
+                            toggleModal={toggleModal}
                         />
                         <MarkerPreview
                             marker={filteredMarker[filteredMarker.length - 3]}
                             focus={focusViewport}
+                            toggleModal={toggleModal}
                         />
                     </>
                 )}
@@ -197,6 +214,7 @@ export default function Map() {
                             closePopup={closePopup}
                             removeMarker={removeMarker}
                             userId={activeUser.id}
+                            toggleModal={toggleModal}
                         />
                     )}
                 </ReactMapGL>

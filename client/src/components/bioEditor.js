@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBio } from "../redux/actions";
 import axios from "../axios";
-import { Button, TextareaAutosize } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import CreateIcon from "@material-ui/icons/Create";
+import SaveIcon from "@material-ui/icons/Save";
 
 export default function BioEditor() {
     const dispatch = useDispatch();
@@ -42,7 +44,11 @@ export default function BioEditor() {
     const emptyMode = () => {
         return (
             <div className="bio-container">
-                <Button onClick={toggleTextarea}>Add Bio</Button>
+                <span>
+                    <Button startIcon={<CreateIcon />} onClick={toggleTextarea}>
+                        Add Bio
+                    </Button>
+                </span>
             </div>
         );
     };
@@ -50,7 +56,11 @@ export default function BioEditor() {
         return (
             <div className="bio-container">
                 <p className="bio-text">{bio}</p>
-                <Button onClick={toggleTextarea}>Edit Bio</Button>
+                <span>
+                    <Button startIcon={<CreateIcon />} onClick={toggleTextarea}>
+                        Edit Bio
+                    </Button>
+                </span>
             </div>
         );
     };
@@ -58,9 +68,15 @@ export default function BioEditor() {
         return (
             <div className="bio-container">
                 {error && <p>Something went wrong.</p>}
-                <TextareaAutosize onChange={handleChange} value={draftBio} />
+                <textarea
+                    className="bio-textarea"
+                    onChange={handleChange}
+                    value={draftBio}
+                />
                 <span>
-                    <Button onClick={handleUpload}>Save</Button>
+                    <Button startIcon={<SaveIcon />} onClick={handleUpload}>
+                        Save
+                    </Button>
                     <Button onClick={resetTextarea}>Close</Button>
                 </span>
             </div>

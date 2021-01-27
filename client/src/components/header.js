@@ -41,10 +41,15 @@ const useStyles = makeStyles(() => ({
     notification: {
         position: "absolute",
         top: "20px",
-        left: "70px",
         borderRadius: "50%",
         height: "15px",
         width: "15px",
+    },
+    message: {
+        left: "85px",
+    },
+    friend: {
+        left: "70px",
     },
     responsiveContainer: {
         padding: "20px 30px",
@@ -54,12 +59,15 @@ const useStyles = makeStyles(() => ({
 export default function Header() {
     const activeUser = useSelector((state) => state.activeUser);
     const newFriendRequest = useSelector((state) => state.openRequests);
+    const newMessage = useSelector((state) => state.messageNotification);
     const {
         header,
         menuButton,
         toolbar,
         navbar,
         notification,
+        message,
+        friend,
         responsiveContainer,
     } = useStyles();
     const [state, setState] = useState({
@@ -87,18 +95,27 @@ export default function Header() {
             <img
                 src="/img/friend.svg"
                 alt="notification"
-                className={notification}
+                className={`${notification} ${friend}`}
             />
         </span>
     ) : (
         "Friends"
     );
 
+    let messageLabel = newMessage ? (
+        <span>
+            Messages
+            <img
+                src="/img/message.svg"
+                alt="notification"
+                className={`${notification} ${message}`}
+            />
+        </span>
+    ) : (
+        "Messages"
+    );
+
     const menuData = [
-        {
-            label: "Profile",
-            href: "/profile",
-        },
         {
             label: friendsLabel,
             href: "/friends",
@@ -108,8 +125,12 @@ export default function Header() {
             href: "/users",
         },
         {
-            label: "Messages",
+            label: messageLabel,
             href: "/messages",
+        },
+        {
+            label: "Profile",
+            href: "/profile",
         },
         {
             label: "Logout",

@@ -5,6 +5,8 @@ import Login from "./welcome_components/login";
 import Reset from "./welcome_components/resetPassword";
 import Footer from "./components/footer";
 
+import "./welcome_components/welcome.css";
+
 export default function Welcome() {
     useEffect(() => {
         document.title = "Climber's Paradise";

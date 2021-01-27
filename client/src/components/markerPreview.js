@@ -1,4 +1,6 @@
-export default function MarkerPreview({ marker, focus }) {
+import { Button } from "@material-ui/core";
+
+export default function MarkerPreview({ marker, focus, toggleModal }) {
     if (marker == undefined) {
         return null;
     }
@@ -12,6 +14,7 @@ export default function MarkerPreview({ marker, focus }) {
                 />
             )}
             {marker.title != "undefined" && <p>{marker.title}</p>}
+            <Button variant="outlined" onClick={() => toggleModal(marker)}>View Comments</Button>
         </div>
     );
 }

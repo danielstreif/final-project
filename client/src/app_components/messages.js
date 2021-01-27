@@ -3,7 +3,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import ProfilePic from "../components/profilePic";
 import Messenger from "../components/messenger";
-import { getPrivateMessages, getFriendList } from "../redux/actions";
+import {
+    getPrivateMessages,
+    getFriendList,
+    resetMessageNote,
+    resetCorrespondence,
+} from "../redux/actions";
 import { Button } from "@material-ui/core";
 
 import "./messages.css";
@@ -24,6 +29,8 @@ export default function Messages() {
 
     useEffect(() => {
         dispatch(getFriendList());
+        dispatch(resetMessageNote());
+        dispatch(resetCorrespondence());
     }, []);
 
     const startPrivateMessage = (id) => {

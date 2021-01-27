@@ -58,16 +58,19 @@
 
 .user-other {
     padding: 10px 50px 10px 10px;
-    background-color: rgba(240, 128, 128, 0.2);
+    background-color: rgba(126, 126, 126, 0.2);
     width: -moz-fit-content;
     width: fit-content;
     min-width: 45%;
 }
 
 .user-info {
-    margin: 10px 5px 0 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 10px 10px 0 10px;
     font-size: small;
     color: gray;
+    height: 28px;
 }
 
 .chat-textarea {
@@ -81,7 +84,8 @@
 }
 
 .message {
-    padding-bottom: 5px;
+    padding: 0 10px 5px 10px;
+    font-size: 15px;
 }
 
 .message-profile-pic {
@@ -90,9 +94,14 @@
 }
 
 .delete-icon {
+    position: relative;
+    left: 100%;
+    top: -20px;
+    display: inline-block;
     height: 20px;
     width: 20px;
     cursor: pointer;
+    z-index: 10;
 }
 
 .deleted-message {

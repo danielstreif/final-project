@@ -57,29 +57,22 @@ export default function Messenger({ userId, otherId }) {
                                         </span>
                                         <div className="chat-user">
                                             <span className="user-info">
-                                                <p>You</p>
-                                                <p>{message.time}</p>
-                                            </span>
-                                            <Link to="/profile">
-                                                <div className="message-profile-pic">
-                                                    <ProfilePic
-                                                        props={message}
+                                                <span>You</span>
+                                                {message.time}
+                                                {message.message !=
+                                                    "message deleted" && (
+                                                    <img
+                                                        className="delete-icon"
+                                                        src="/img/bin.png"
+                                                        alt="delete"
+                                                        onClick={() =>
+                                                            deleteMessage(
+                                                                message.id
+                                                            )
+                                                        }
                                                     />
-                                                </div>
-                                            </Link>
-                                            {message.message !=
-                                                "message deleted" && (
-                                                <img
-                                                    className="delete-icon"
-                                                    src="/img/bin.png"
-                                                    alt="delete"
-                                                    onClick={() =>
-                                                        deleteMessage(
-                                                            message.id
-                                                        )
-                                                    }
-                                                />
-                                            )}
+                                                )}
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -100,16 +93,14 @@ export default function Messenger({ userId, otherId }) {
                                             className="chat-user"
                                             to={`/users/${message.user}`}
                                         >
-                                            <div className="message-profile-pic">
-                                                <ProfilePic props={message} />
-                                            </div>
+                                            <span className="user-info">
+                                                <span>
+                                                    {message.first}{" "}
+                                                    {message.last}
+                                                </span>
+                                                {message.time}
+                                            </span>
                                         </Link>
-                                        <span className="user-info">
-                                            <p>
-                                                {message.first} {message.last}
-                                            </p>
-                                            <p>{message.time}</p>
-                                        </span>
                                     </div>
                                 )}
                             </li>

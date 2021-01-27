@@ -94,7 +94,7 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "RECEIVE_PRIVATE_MESSAGE") {
-        if (state.privateCorrespondent == action.senderId) {
+        if (state.privateCorrespondent == action.senderId && state.privateMessages) {
             return (state = {
                 ...state,
                 privateMessages: [
@@ -105,9 +105,23 @@ export default function reducer(state = {}, action) {
         } else {
             return (state = {
                 ...state,
-                messageNotification: action.senderId,
+                messageNotification: true,
             });
         }
+    }
+
+    if (action.type == "RESET_MESSAGE_NOTE") {
+        state = {
+            ...state,
+            messageNotification: false,
+        };
+    }
+
+    if (action.type == "RESET_CORRESPONDENCE") {
+        state = {
+            ...state,
+            privateCorrespondent: null,
+        };
     }
 
     if (action.type == "MESSAGE_SENT") {

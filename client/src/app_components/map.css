@@ -76,13 +76,24 @@
 }
 
 .add-marker-box {
-    height: 90px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 5px 12px rgba(0, 0, 0, 0.2);
-    background-color: white;
     padding: 15px;
     margin-bottom: 20px;
 }
 
 .select-category {
     display: flex;
+}
+
+.recent-marker {
+    padding-bottom: 10px;
+}
+
+.chat-textarea {
+    width: 490px;
+    height: 100px;
+    font-family: inherit;
+    font-size: 15px;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 5px 12px rgba(0, 0, 0, 0.2);
+    padding: 5px;
 }

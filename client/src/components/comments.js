@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ListItem, List, Button, TextareaAutosize } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ProfilePic from "./profilePic";
@@ -19,10 +19,6 @@ export default function Comments({ markerId }) {
 
     const handleChange = (e) => {
         setState({ ...state, draft: e.target.value });
-    };
-
-    const resetTextarea = () => {
-        setState({ ...state, draft: null });
     };
 
     const handleSubmit = () => {
@@ -65,43 +61,51 @@ export default function Comments({ markerId }) {
     return (
         <div className="comment-container">
             {error && <p className="error-message">Something went wrong.</p>}
-            <TextareaAutosize
+            <textarea
+                className="chat-textarea"
                 placeholder="Compose Message"
                 onChange={handleChange}
                 value={state.draft ? state.draft : ""}
             />
-            <Button onClick={handleSubmit}>Comment</Button>
-            <Button onClick={resetTextarea}>Cancel</Button>
-            <List>
+            <div>
+                <Button variant="outlined" onClick={handleSubmit}>
+                    Comment
+                </Button>
+            </div>
+            <ul>
                 {state.comments &&
                     state.comments.map((comment) => (
-                        <ListItem key={comment.id}>
+                        <li key={comment.id}>
                             {comment.comment}
-                            <Link
-                                className="chat-user"
-                                to={`/users/${comment.user}`}
-                            >
-                                <div className="message-profile-pic">
-                                    <ProfilePic props={comment} />
-                                </div>
-                            </Link>
-                            <span className="user-info">
-                                {comment.first} {comment.last}
-                                {comment.time}
-                                {userId == comment.user && (
-                                    <img
-                                        className="delete-icon"
-                                        src="/img/bin.png"
-                                        alt="delete"
-                                        onClick={() =>
-                                            deleteComment(comment.id)
-                                        }
-                                    />
-                                )}
+                            <span>
+                                <Link
+                                    className="chat-user"
+                                    to={`/users/${comment.user}`}
+                                >
+                                    <div className="message-profile-pic">
+                                        <ProfilePic props={comment} />
+                                    </div>
+                                </Link>
+                                <span className="user-info">
+                                    <div>
+                                        {comment.first} {comment.last}
+                                    </div>
+                                    <div>{comment.time}</div>
+                                    {userId == comment.user && (
+                                        <img
+                                            className="delete-icon"
+                                            src="/img/bin.png"
+                                            alt="delete"
+                                            onClick={() =>
+                                                deleteComment(comment.id)
+                                            }
+                                        />
+                                    )}
+                                </span>
                             </span>
-                        </ListItem>
+                        </li>
                     ))}
-            </List>
+            </ul>
         </div>
     );
 }

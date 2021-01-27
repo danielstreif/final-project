@@ -1,0 +1,50 @@
+.welcome-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 450px 1fr;
+    margin: 0 100px 100px 100px;
+    align-self: center;
+}
+
+.logo-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 0 80px 100px 80px;
+    align-self: center;
+}
+
+.auth-container {
+    position: relative;
+    border: none;
+    width: 350px;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 40px 20px 30px 0;
+}
+
+@media screen and (max-width: 720px) {
+    .welcome-container {
+        margin: 0 0 30px 0;
+        grid-template-columns: 1fr;
+        width: calc(100vw - 20px);
+        justify-items: center;
+        margin-bottom: 100px;
+    }
+    .logo-container {
+        width: 80vw;
+        max-width: 330px;
+        margin: 30px 0 40px 0;
+        text-align: center;
+    }
+    .auth-container {
+        width: 400px;
+        max-width: 80vw !important;
+        text-align: center;
+        padding-left: 20px;
+    }
+    footer {
+        padding-left: 20px;
+    }
+}

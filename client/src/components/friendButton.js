@@ -44,11 +44,18 @@ export default function FriendButton({ otherId }) {
 
     return (
         <>
-            <Button onClick={(e) => handleClick(e, buttonText)}>
+            <Button
+                variant="outlined"
+                onClick={(e) => handleClick(e, buttonText)}
+            >
                 {buttonText}
             </Button>
             {buttonText === "Accept" && (
-                <Button onClick={(e) => handleClick(e, "Decline")}>
+                <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={(e) => handleClick(e, "Decline")}
+                >
                     Decline
                 </Button>
             )}

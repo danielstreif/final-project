@@ -1,6 +1,11 @@
 import axios from "../axios";
+import { useEffect } from "react";
 
 export default function Logout() {
+    useEffect(() => {
+        logout();
+    });
+    
     const logout = () => {
         axios
             .get("/logout")
@@ -12,5 +17,5 @@ export default function Logout() {
             .catch((err) => console.log("Logout error: ", err));
     };
 
-    return logout();
+    return null;
 }

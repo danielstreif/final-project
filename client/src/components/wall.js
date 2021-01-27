@@ -2,16 +2,23 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMarkerByUser, focusMarker } from "../redux/actions";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import Comments from "./comments";
+import { Button, makeStyles } from "@material-ui/core";
+import CommentModal from "./commentModal";
 
 import "../app_components/profile.css";
+
+const useStyles = makeStyles(() => ({
+    buttonSpacing: {
+        marginRight: "10px",
+    },
+}));
 
 export default function Wall({ id }) {
     const dispatch = useDispatch();
     const mapMarker = useSelector((state) => state.personalMarker);
     const [showModal, setModal] = useState(false);
     const [activePost, setPostActive] = useState({});
+    const { buttonSpacing } = useStyles();
 
     useEffect(() => {
         dispatch(getMarkerByUser(id));
@@ -30,23 +37,14 @@ export default function Wall({ id }) {
         return <p>Loading</p>;
     }
 
-    const modal = (
-        <div className="modal">
-            <div className="modal-img-box">
-                <div className="modal-header">
-                    <h2>{activePost.title}</h2>
-                    <Button onClick={toggleModal}>X</Button>
-                </div>
-                <img src={activePost.url} alt={`Image ${activePost.id}`} />
-                <p className="standard-text">{activePost.description}</p>
-                <Comments markerId={activePost.id} />
-            </div>
-        </div>
-    );
-
     return (
         <>
-            {showModal && modal}
+            {showModal && (
+                <CommentModal
+                    activePost={activePost}
+                    toggleModal={toggleModal}
+                />
+            )}
             {mapMarker.length == 0 && (
                 <p className="standard-text">No crags marked yet</p>
             )}
@@ -60,10 +58,17 @@ export default function Wall({ id }) {
                                 alt={`Image ${marker.id}`}
                             />
                             <p>{marker.description}</p>
-                            <Button onClick={() => getMapview(marker)}>
+                            <Button
+                                className={buttonSpacing}
+                                variant="outlined"
+                                onClick={() => getMapview(marker)}
+                            >
                                 <Link to="/">View on Map</Link>
                             </Button>
-                            <Button onClick={() => toggleModal(marker)}>
+                            <Button
+                                variant="outlined"
+                                onClick={() => toggleModal(marker)}
+                            >
                                 View Comments
                             </Button>
                         </div>

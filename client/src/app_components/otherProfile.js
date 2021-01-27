@@ -35,11 +35,13 @@ export default function OtherProfile(props) {
                         <ProfilePic props={otherUser} />
                     </div>
                     <p className="bio-text">{otherUser.bio}</p>
-                    <FriendButton otherId={otherUser.id} />
+                    <span>
+                        <FriendButton otherId={otherUser.id} />
+                    </span>
                 </div>
             )}
             <div className="profile-container-right">
-                <Wall id={activeUser.id} />
+                <Wall id={otherUser.id} />
             </div>
         </div>
     );

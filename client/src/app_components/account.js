@@ -3,9 +3,16 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import useAuthSubmit from "../hooks/useAuthSubmit";
 import Uploader from "../components/imgUploader";
-import { Button, Input } from "@material-ui/core";
+import { Button, Input, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+    inputSpacing: {
+        marginBottom: "15px",
+    },
+}));
 
 export default function Account() {
+    const { inputSpacing } = useStyles();
     const activeUser = useSelector((state) => state.activeUser);
     const [values, setValues] = useState({
         first: activeUser.first,
@@ -15,7 +22,11 @@ export default function Account() {
     });
     const [confirmDelete, setDeleteModal] = useState(false);
     const [uploadProfilePic, setUploadModal] = useState(false);
-    const [error, handleSubmit] = useAuthSubmit("/user/profile/edit", values);
+    const [error, handleSubmit] = useAuthSubmit(
+        "/user/profile/edit",
+        values,
+        "/"
+    );
 
     const toggleDelete = () => {
         setValues({
@@ -49,7 +60,14 @@ export default function Account() {
                     <h2>Confirm Account Deletion</h2>
                     <Button onClick={toggleDelete}>X</Button>
                 </div>
-                <Button onClick={handleSubmit}>Delete Account</Button>
+                <Button
+                    className={inputSpacing}
+                    onClick={handleSubmit}
+                    variant="outlined"
+                    color="secondary"
+                >
+                    Delete Account
+                </Button>
                 <Button onClick={toggleDelete}>Cancel</Button>
             </div>
         </div>
@@ -65,6 +83,7 @@ export default function Account() {
                     <p className="error-message">Something went wrong...</p>
                 )}
                 <Input
+                    className={inputSpacing}
                     onChange={handleChange}
                     name="first"
                     placeholder="First Name"
@@ -72,6 +91,7 @@ export default function Account() {
                     value={values.first}
                 />
                 <Input
+                    className={inputSpacing}
                     onChange={handleChange}
                     name="last"
                     placeholder="Last Name"
@@ -79,6 +99,7 @@ export default function Account() {
                     value={values.last}
                 />
                 <Input
+                    className={inputSpacing}
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     name="email"
@@ -87,18 +108,31 @@ export default function Account() {
                     value={values.email}
                 />
                 <Input
+                    className={inputSpacing}
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
                     name="password"
                     placeholder="Change Password"
                     type="password"
                 />
-                <Button onClick={handleSubmit}>Submit Changes</Button>
-                <Button onClick={toggleUpload}>Change Profile Picture</Button>
-                <Button onClick={toggleDelete}>Delete Account</Button>
-                <Link to="/profile">
-                    <Button>Back</Button>
-                </Link>
+                <Button
+                    className={inputSpacing}
+                    variant="outlined"
+                    onClick={handleSubmit}
+                >
+                    Submit Changes
+                </Button>
+            </div>
+            <div className="setting-buttons">
+                <Button className={inputSpacing} onClick={toggleUpload}>
+                    Change Profile Picture
+                </Button>
+                <Button className={inputSpacing} onClick={toggleDelete}>
+                    Delete Account
+                </Button>
+                <Button>
+                    <Link to="/profile">Cancel</Link>
+                </Button>
             </div>
         </>
     );

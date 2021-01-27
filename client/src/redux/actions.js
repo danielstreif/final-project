@@ -96,6 +96,18 @@ export function receiveNewPrivateMessage(msg, userId) {
     };
 }
 
+export function resetMessageNote() {
+    return {
+        type: "RESET_MESSAGE_NOTE",
+    };
+}
+
+export function resetCorrespondence() {
+    return {
+        type: "RESET_CORRESPONDENCE",
+    };
+}
+
 export function messageSent(message) {
     return {
         type: "MESSAGE_SENT",

@@ -9,13 +9,22 @@ import {
     InputLabel,
     MenuItem,
     FormControl,
+    makeStyles,
 } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+    inputSpacing: {
+        marginBottom: "15px",
+    },
+}));
 
 export default function MarkerUploader({ cancelMarker, newMarker }) {
     const dispatch = useDispatch();
     const [values, handleChange] = useStatefulFields();
     const [imgFile, setImgFile] = useState();
     const [category, setCategory] = useState("");
+    const [error, setError] = useState(false);
+    const { inputSpacing } = useStyles();
 
     const handleFileChange = (e) => {
         setImgFile(e.target.files[0]);
@@ -27,6 +36,10 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
 
     const saveMarker = (e) => {
         e.preventDefault();
+        if (!imgFile || !values.title || !category) {
+            return setError(true);
+        }
+        setError(false);
         const formData = new FormData();
         formData.append("image", imgFile);
         formData.append("title", values.title);
@@ -41,6 +54,11 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
 
     return (
         <div>
+            {error && (
+                <p className="error-message">
+                    Please provide more information...
+                </p>
+            )}
             <form
                 name="upload-form"
                 method="POST"
@@ -48,21 +66,29 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                 encType="multipart/form-data"
                 autoComplete="off"
             >
+                {" "}
+                <div>
+                    <Input
+                        className={inputSpacing}
+                        onChange={handleChange}
+                        name="title"
+                        placeholder="Location"
+                        type="text"
+                        required
+                    />
+                </div>
+                <div>
+                    <Input
+                        className={inputSpacing}
+                        onChange={handleChange}
+                        name="description"
+                        placeholder="Description"
+                        type="text"
+                        required
+                    />
+                </div>
                 <Input
-                    onChange={handleChange}
-                    name="title"
-                    placeholder="Location"
-                    type="text"
-                    required
-                />
-                <Input
-                    onChange={handleChange}
-                    name="description"
-                    placeholder="Description"
-                    type="text"
-                    required
-                />
-                <Input
+                    className={inputSpacing}
                     name="image"
                     id="image"
                     type="file"
@@ -70,23 +96,32 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     onChange={handleFileChange}
                     required
                 />
-                <FormControl>
-                    <InputLabel id="marker-category">
-                        Climbing category:
-                    </InputLabel>
-                    <Select
-                        labelId="marker-category"
-                        id="select"
-                        value={category}
-                        onChange={handleSelect}
-                        required
-                    >
-                        <MenuItem value="boulder">Bouldering</MenuItem>
-                        <MenuItem value="sport">Sport Climbing</MenuItem>
-                        <MenuItem value="trad">Trad Climbing</MenuItem>
-                    </Select>
-                </FormControl>
-                <Button onClick={saveMarker}>Add</Button>
+                <div>
+                    <FormControl>
+                        <InputLabel id="marker-category">
+                            Climbing category:
+                        </InputLabel>
+                        <Select
+                            className={inputSpacing}
+                            labelId="marker-category"
+                            id="select"
+                            value={category}
+                            onChange={handleSelect}
+                            required
+                        >
+                            <MenuItem value="boulder">Bouldering</MenuItem>
+                            <MenuItem value="sport">Sport Climbing</MenuItem>
+                            <MenuItem value="trad">Trad Climbing</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
+                <Button
+                    className={inputSpacing}
+                    variant="outlined"
+                    onClick={saveMarker}
+                >
+                    Add
+                </Button>
             </form>
             <Button onClick={cancelMarker}>Cancel</Button>
         </div>
