@@ -8,6 +8,12 @@
     scrollbar-width: none;
 }
 
+.preview-img {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .map-container {
     margin-left: 20px;
     height: 70vh;
@@ -24,10 +30,9 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     color: #fff;
-    background: #4d2d73;
     border: solid 2px;
     border-radius: 0 70% 70%;
     box-shadow: 0 0 2px #000;
@@ -40,8 +45,20 @@
     transform: rotateZ(135deg);
 }
 
+.boulder {
+    background: rgba(0, 128, 0, 0.6);
+}
+
+.sport {
+    background: rgba(255, 0, 0, 0.6);
+}
+
+.trad {
+    background: rgba(0, 0, 255, 0.6);
+}
+
 .temporary-marker span {
-    background: #9989f5;
+    background: rgba(223, 223, 223, 0.6);
 }
 
 .select-category {

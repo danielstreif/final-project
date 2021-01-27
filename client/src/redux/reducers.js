@@ -166,5 +166,12 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "FOCUS_MARKER") {
+        state = {
+            ...state,
+            focusMarker: action.focus,
+        };
+    }
+
     return state;
 }

@@ -141,3 +141,10 @@ export async function removeMapMarker(id) {
         id: data.id,
     };
 }
+
+export function focusMarker(marker) {
+    return {
+        type: "FOCUS_MARKER",
+        focus: marker,
+    };
+}

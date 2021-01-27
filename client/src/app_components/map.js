@@ -16,9 +16,10 @@ export default function Map() {
     const mapboxKey = useSelector((state) => state.activeUser.mapboxKey);
     const activeUser = useSelector((state) => state.activeUser);
     const mapMarker = useSelector((state) => state.mapMarker);
+    const focusMarker = useSelector((state) => state.focusMarker);
     const [viewport, setViewport] = useState({
-        latitude: 52.520008,
-        longitude: 13.404954,
+        latitude: focusMarker ? focusMarker.lat : 52.520008,
+        longitude: focusMarker ? focusMarker.long : 13.404954,
         zoom: 9,
     });
 
@@ -38,7 +39,7 @@ export default function Map() {
     useEffect(() => {
         dispatch(getMapMarker());
     }, []);
-    
+
     let filteredMarker;
     if (mapMarker) {
         filteredMarker = mapMarker.filter((marker) => filter[marker.category]);
@@ -53,7 +54,7 @@ export default function Map() {
         setSelectedMarker(null);
     };
 
-    const focusMarker = (marker) => {
+    const focusViewport = (marker) => {
         setViewport({ latitude: marker.lat, longitude: marker.long, zoom: 9 });
     };
 
@@ -125,15 +126,15 @@ export default function Map() {
                     <>
                         <MarkerPreview
                             marker={filteredMarker[filteredMarker.length - 1]}
-                            focus={focusMarker}
+                            focus={focusViewport}
                         />
                         <MarkerPreview
                             marker={filteredMarker[filteredMarker.length - 2]}
-                            focus={focusMarker}
+                            focus={focusViewport}
                         />
                         <MarkerPreview
                             marker={filteredMarker[filteredMarker.length - 3]}
-                            focus={focusMarker}
+                            focus={focusViewport}
                         />
                     </>
                 )}

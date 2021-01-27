@@ -6,7 +6,7 @@ export default function MarkerPreview({ marker, focus }) {
         <div className="recent-marker" onClick={() => focus(marker)}>
             {marker.url && (
                 <img
-                    className="popup-img"
+                    className="preview-img"
                     src={marker.url}
                     alt={marker.title}
                 />

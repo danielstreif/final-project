@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMarkerByUser } from "../redux/actions";
+import { getMarkerByUser, focusMarker } from "../redux/actions";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 export default function Wall({ id }) {
     const dispatch = useDispatch();
@@ -14,6 +16,10 @@ export default function Wall({ id }) {
         return <p>Loading</p>;
     }
 
+    const getMapview = (marker) => {
+        return dispatch(focusMarker(marker));
+    };
+
     return (
         <>
             {mapMarker.length == 0 && (
@@ -21,10 +27,17 @@ export default function Wall({ id }) {
             )}
             {mapMarker && (
                 <>
-                    {mapMarker.map((post) => (
-                        <div className="post-container" key={post.id}>
-                            <img className="wall-img" src={post.url} alt={`Image ${post.id}`} />
-                            <p className="standard-text">{post.description}</p>
+                    {mapMarker.map((marker) => (
+                        <div className="post-container" key={marker.id}>
+                            <img
+                                className="wall-img"
+                                src={marker.url}
+                                alt={`Image ${marker.id}`}
+                            />
+                            <p>{marker.description}</p>
+                            <Button onClick={() => getMapview(marker)}>
+                                <Link to="/map">View on Map</Link>
+                            </Button>
                         </div>
                     ))}
                 </>

@@ -11,7 +11,8 @@ module.exports.getAllMarker = () => {
 module.exports.getMarkerByUser = (userId) => {
     return db.query(
         `SELECT * FROM map_marker
-    WHERE user_id = $1`,
+    WHERE user_id = $1
+    ORDER BY id DESC`,
         [userId]
     );
 };
