@@ -187,7 +187,7 @@ export default function Map() {
                                     key={index}
                                     index={index}
                                     marker={marker}
-                                    openPopup={() => openPopup(index)}
+                                    openPopup={openPopup}
                                 />
                             );
                         })}

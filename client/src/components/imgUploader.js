@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProfilePic } from "../redux/actions";
 import axios from "../axios";
 import { Button, Input } from "@material-ui/core";
+import { CloudUpload } from "@material-ui/icons";
 
 import "./imgUploader.css";
 
@@ -69,11 +70,9 @@ export default function Uploader({ toggleModal }) {
                         accept="image/*"
                         onChange={handleChange}
                     />
-                    <img
-                        className="icon"
-                        src="/img/upload.png"
-                        onClick={uploadImage}
-                    />
+                    <Button onClick={uploadImage} startIcon={<CloudUpload />}>
+                        Upload
+                    </Button>
                     {imageUrl && (
                         <Button onClick={deleteImage}>
                             Delete Current Image

@@ -51,7 +51,6 @@ export default function Friends() {
                         {buttonArr.map((button, index) => (
                             <Button
                                 key={index}
-                                className="friend-button"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     dispatch(button.action(user.id));

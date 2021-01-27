@@ -48,7 +48,7 @@ export default function Wall({ id }) {
         <>
             {showModal && modal}
             {mapMarker.length == 0 && (
-                <p className="standard-text">No spots marked yet</p>
+                <p className="standard-text">No crags marked yet</p>
             )}
             {mapMarker && (
                 <>

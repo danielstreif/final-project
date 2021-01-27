@@ -25,9 +25,8 @@ export default function FriendButton({ otherId }) {
         }
     }, [otherId]);
 
-    const handleClick = (e) => {
+    const handleClick = (e, action) => {
         e.preventDefault();
-        const action = e.target.value;
         if (action == "Add Friend") {
             socket.emit("friend request", Number(otherId));
         }
@@ -45,19 +44,11 @@ export default function FriendButton({ otherId }) {
 
     return (
         <>
-            <Button
-                className="friend-button"
-                value={buttonText}
-                onClick={handleClick}
-            >
+            <Button onClick={(e) => handleClick(e, buttonText)}>
                 {buttonText}
             </Button>
             {buttonText === "Accept" && (
-                <Button
-                    className="friend-button"
-                    value="Decline"
-                    onClick={handleClick}
-                >
+                <Button onClick={(e) => handleClick(e, "Decline")}>
                     Decline
                 </Button>
             )}
