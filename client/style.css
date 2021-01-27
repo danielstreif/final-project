@@ -36,6 +36,14 @@ a {
     color: black;
 }
 
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style: none;
+}
+
 .page-container {
     display: grid;
     grid-template-columns: 280px 1fr;
@@ -60,7 +68,7 @@ a {
 }
 
 .friend-profile-pic {
-    min-width: 100px;
+    width: 100px;
     height: 100px;
 }
 

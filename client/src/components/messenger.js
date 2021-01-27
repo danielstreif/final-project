@@ -45,11 +45,13 @@ export default function Messenger({ userId, otherId }) {
                                 {message.user == userId && (
                                     <div className="user-self">
                                         <span
-                                            className={
+                                            className={`message ${
                                                 message.message ==
-                                                    "message deleted" &&
-                                                "deleted-message"
+                                                "message deleted"
+                                                    ? "deleted-message"
+                                                    : ""
                                             }
+                                            `}
                                         >
                                             {message.message}
                                         </span>
@@ -84,11 +86,13 @@ export default function Messenger({ userId, otherId }) {
                                 {message.user != userId && (
                                     <div className="user-other">
                                         <span
-                                            className={
+                                            className={`message ${
                                                 message.message ==
-                                                    "message deleted" &&
-                                                "deleted-message"
+                                                "message deleted"
+                                                    ? "deleted-message"
+                                                    : ""
                                             }
+                                            `}
                                         >
                                             {message.message}
                                         </span>
@@ -117,7 +121,6 @@ export default function Messenger({ userId, otherId }) {
                 onKeyDown={handleKeyDown}
                 placeholder="Compose Message"
             />
-            )
         </div>
     );
 }
