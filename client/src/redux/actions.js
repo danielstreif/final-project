@@ -118,6 +118,14 @@ export async function getMapMarker() {
     };
 }
 
+export async function getMarkerByUser(id) {
+    const { data } = await axios.get(`/map/marker/${id}`);
+    return {
+        type: "GET_PERSONAL_MARKER",
+        personalMarker: [...data],
+    };
+}
+
 export async function addMapMarker(formData) {
     const { data } = await axios.post("/map/marker", formData);
     return {

@@ -1,0 +1,35 @@
+.page-container {
+}
+
+.profile-container-left {
+    max-height: 600px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.profile-container-right {
+    padding-right: 10px;
+    padding-left: 10px;
+    max-width: 650px;
+    width: 100%;
+    max-height: 85vh;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.post-container {
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 5px 12px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.wall-img {
+    width: 400px;
+    border-radius: 8px;
+}

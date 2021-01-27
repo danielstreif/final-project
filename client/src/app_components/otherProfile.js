@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOtherUser } from "../redux/actions";
 import ProfilePic from "../components/profilePic";
 import FriendButton from "../components/friendButton";
+import Wall from "../components/wall";
+
+import "./profile.css";
 
 export default function OtherProfile(props) {
     const dispatch = useDispatch();
@@ -22,7 +25,7 @@ export default function OtherProfile(props) {
     }
 
     return (
-        <div className="profile-container">
+        <div className="page-container">
             {otherUser.id == otherId && (
                 <div className="profile-container-left">
                     <h2>
@@ -36,7 +39,7 @@ export default function OtherProfile(props) {
                 </div>
             )}
             <div className="profile-container-right">
-                <p>map and gallery?</p>
+                <Wall id={activeUser.id} />
             </div>
         </div>
     );

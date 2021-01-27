@@ -143,6 +143,13 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "GET_PERSONAL_MARKER") {
+        state = {
+            ...state,
+            personalMarker: action.personalMarker,
+        };
+    }
+
     if (action.type == "ADD_MAP_MARKER") {
         state = {
             ...state,

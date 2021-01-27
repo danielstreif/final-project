@@ -42,6 +42,19 @@ router.get("/map/marker", async (req, res) => {
     res.json(data);
 });
 
+router.get("/map/marker/:id", async (req, res) => {
+    const { id } = req.params;
+    const { rows } = await db.getMarkerByUser(id);
+    const data = rows;
+    for (let i in data) {
+        const { rows } = await db.getMarkerImages(data[i].id);
+        if (rows.length > 0) {
+            data[i].url = rows[0].url;
+        }
+    }
+    res.json(data);
+});
+
 router.post(
     "/map/marker",
     uploader.single("image"),
