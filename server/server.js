@@ -9,7 +9,13 @@ const db = require("./database/messages");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
     allowRequest: (req, callback) =>
-        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+        callback(
+            null,
+            req.headers.referer.startsWith(
+                "http://localhost:3000" ||
+                    "https://climbers-paradise.herokuapp.com"
+            )
+        ),
 });
 
 app.use(compression());
