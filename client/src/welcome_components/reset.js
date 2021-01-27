@@ -97,7 +97,7 @@ export default function Reset() {
                     placeholder="New Password"
                     type="password"
                 />
-                <Button onClick={() => this.handleVerification()}>
+                <Button onClick={handleVerification}>
                     Submit
                 </Button>
             </>

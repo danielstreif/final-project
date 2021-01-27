@@ -97,7 +97,7 @@ export default function Header() {
     const menuData = [
         {
             label: "Profile",
-            href: "/",
+            href: "/profile",
         },
         {
             label: friendsLabel,

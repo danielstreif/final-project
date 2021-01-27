@@ -96,7 +96,7 @@ export default function Account() {
                     type="password"
                 />
                 <Button onClick={handleSubmit}>Submit Changes</Button>
-                <Link to="/">
+                <Link to="/profile">
                     <Button>Cancel</Button>
                 </Link>
                 <Button onClick={toggleUpload}>Change Profile Picture</Button>

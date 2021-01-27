@@ -50,6 +50,7 @@ export default function Map() {
     }
 
     const updateTempMarker = (e) => {
+        e.preventDefault();
         setTempMarker({
             userId: activeUser.id,
             long: e.lngLat[0],
@@ -186,7 +187,7 @@ export default function Map() {
                                     key={index}
                                     index={index}
                                     marker={marker}
-                                    openPopup={openPopup}
+                                    openPopup={() => openPopup(index)}
                                 />
                             );
                         })}
@@ -200,10 +201,7 @@ export default function Map() {
                 </ReactMapGL>
                 <div className="add-marker-box">
                     {!tempMarker && (
-                        <>
-                            Click anywhere on the map to add a new climbing
-                            spot.
-                        </>
+                        <>Right click on the map to add a new climbing spot.</>
                     )}
                     {tempMarker && (
                         <MarkerUploader

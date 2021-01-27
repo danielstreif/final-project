@@ -27,5 +27,5 @@ export default function Logo() {
         </Typography>
     );
 
-    return <Link to={"/map"}>{title}</Link>;
+    return <Link to={"/"}>{title}</Link>;
 }

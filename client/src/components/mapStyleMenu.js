@@ -8,9 +8,7 @@ export default function MapStyleMenu({ setStyle }) {
         setStyle(`mapbox://styles/mapbox/${category}`);
         setChecked({ [category]: true });
     };
-
-    console.log(checked);
-
+    
     return (
         <div
             className={`map-style-menu ${

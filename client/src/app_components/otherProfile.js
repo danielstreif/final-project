@@ -15,7 +15,7 @@ export default function OtherProfile(props) {
 
     useEffect(() => {
         if (otherId === activeUser.id) {
-            return props.history.push("/");
+            return props.history.push("/profile");
         }
         dispatch(getOtherUser(otherId));
     }, [otherId]);

@@ -58,7 +58,7 @@ export default function Messenger({ userId, otherId }) {
                                                 <p>You</p>
                                                 <p>{message.time}</p>
                                             </span>
-                                            <Link to="/">
+                                            <Link to="/profile">
                                                 <div className="message-profile-pic">
                                                     <ProfilePic
                                                         props={message}

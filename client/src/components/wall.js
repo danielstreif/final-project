@@ -48,7 +48,7 @@ export default function Wall({ id }) {
         <>
             {showModal && modal}
             {mapMarker.length == 0 && (
-                <p className="standard-text">No spots marked yet yet</p>
+                <p className="standard-text">No spots marked yet</p>
             )}
             {mapMarker && (
                 <>
@@ -61,7 +61,7 @@ export default function Wall({ id }) {
                             />
                             <p>{marker.description}</p>
                             <Button onClick={() => getMapview(marker)}>
-                                <Link to="/map">View on Map</Link>
+                                <Link to="/">View on Map</Link>
                             </Button>
                             <Button onClick={() => toggleModal(marker)}>
                                 View Comments

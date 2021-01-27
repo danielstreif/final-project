@@ -25,6 +25,7 @@ export default function Uploader({ toggleModal }) {
             return setError(true);
         }
         if (data.url) {
+            toggleModal();
             return dispatch(updateProfilePic(data.url));
         }
     };
@@ -48,9 +49,7 @@ export default function Uploader({ toggleModal }) {
             <div className="modal-box">
                 <div className="modal-header">
                     <h2>Change profile picture</h2>
-                    <Button onClick={toggleModal}>
-                        X
-                    </Button>
+                    <Button onClick={toggleModal}>X</Button>
                 </div>
                 {error && (
                     <p className="error-message">Something went wrong...</p>

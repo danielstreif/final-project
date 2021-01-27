@@ -33,7 +33,7 @@ export default function App() {
                 <Header />
                 <div className="app-container">
                     <Switch>
-                        <Route exact path="/" render={() => <Profile />} />
+                        <Route exact path="/" render={() => <Map />} />
                         <Route
                             path="/users/:id"
                             render={(props) => (
@@ -48,7 +48,7 @@ export default function App() {
                         <Route path="/friends" render={() => <Friends />} />
                         <Route path="/messages" render={() => <Messages />} />
                         <Route path="/account" render={() => <Account />} />
-                        <Route path="/map" render={() => <Map />} />
+                        <Route path="/profile" render={() => <Profile />} />
                         <Route path="/logout" render={() => <Logout />} />
                         <Route component={NotFound} />
                     </Switch>
