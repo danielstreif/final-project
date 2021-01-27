@@ -1,27 +1,50 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMarkerByUser, focusMarker } from "../redux/actions";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
+import "../app_components/profile.css";
+
 export default function Wall({ id }) {
     const dispatch = useDispatch();
     const mapMarker = useSelector((state) => state.personalMarker);
+    const [showModal, setModal] = useState(false);
+    const [activePost, setPostActive] = useState({});
 
     useEffect(() => {
         dispatch(getMarkerByUser(id));
     }, [id]);
 
-    if (!id || !mapMarker) {
-        return <p>Loading</p>;
-    }
-
     const getMapview = (marker) => {
         return dispatch(focusMarker(marker));
     };
 
+    const toggleModal = (post) => {
+        setPostActive(post);
+        setModal(!showModal);
+    };
+
+    if (!id || !mapMarker) {
+        return <p>Loading</p>;
+    }
+
+    const modal = (
+        <div className="modal" onClick={toggleModal}>
+            <div className="modal-img-box">
+                <div className="modal-header">
+                    <h2>{activePost.title}</h2>
+                    <Button onClick={toggleModal}>X</Button>
+                </div>
+                <img src={activePost.url} alt={`Image ${activePost.id}`} />
+                <p className="standard-text">{activePost.description}</p>
+            </div>
+        </div>
+    );
+
     return (
         <>
+            {showModal && modal}
             {mapMarker.length == 0 && (
                 <p className="standard-text">No spots marked yet yet</p>
             )}
@@ -37,6 +60,9 @@ export default function Wall({ id }) {
                             <p>{marker.description}</p>
                             <Button onClick={() => getMapview(marker)}>
                                 <Link to="/map">View on Map</Link>
+                            </Button>
+                            <Button onClick={() => toggleModal(marker)}>
+                                View Comments
                             </Button>
                         </div>
                     ))}

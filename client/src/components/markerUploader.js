@@ -51,14 +51,16 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                 <Input
                     onChange={handleChange}
                     name="title"
-                    placeholder="Title"
+                    placeholder="Location"
                     type="text"
+                    required
                 />
                 <Input
                     onChange={handleChange}
                     name="description"
                     placeholder="Description"
                     type="text"
+                    required
                 />
                 <Input
                     name="image"
@@ -66,6 +68,7 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
+                    required
                 />
                 <FormControl>
                     <InputLabel id="marker-category">
@@ -76,6 +79,7 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                         id="select"
                         value={category}
                         onChange={handleSelect}
+                        required
                     >
                         <MenuItem value="boulder">Bouldering</MenuItem>
                         <MenuItem value="sport">Sport Climbing</MenuItem>

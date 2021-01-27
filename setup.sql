@@ -42,8 +42,8 @@ CREATE TABLE private_messages (
 CREATE TABLE map_marker (
    id SERIAL PRIMARY KEY,
    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-   title VARCHAR,
-   description VARCHAR,
+   title VARCHAR NOT NULL,
+   description VARCHAR NOT NULL,
    long FLOAT NOT NULL,
    lat FLOAT NOT NULL,
    category VARCHAR NOT NULL,

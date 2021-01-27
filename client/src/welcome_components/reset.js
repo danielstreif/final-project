@@ -71,6 +71,7 @@ export default function Reset() {
                     name="email"
                     placeholder="Recovery Email"
                     type="email"
+                    required
                 />
                 <Button onClick={handleRequest}>Submit</Button>
             </>

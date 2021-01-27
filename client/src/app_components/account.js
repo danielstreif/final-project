@@ -47,7 +47,7 @@ export default function Account() {
             <div className="modal-box">
                 <div className="modal-header">
                     <h2>Confirm Account Deletion</h2>
-                    <Button className="close-button" onClick={toggleDelete}>
+                    <Button onClick={toggleDelete}>
                         X
                     </Button>
                 </div>

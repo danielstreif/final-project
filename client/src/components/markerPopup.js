@@ -22,9 +22,6 @@ export default function MarkerPopup({ marker, closePopup, removeMarker }) {
                     />
                 )}
                 {marker.title != "undefined" && <p>{marker.title}</p>}
-                {marker.description != "undefined" && (
-                    <p>{marker.description}</p>
-                )}
                 <Button onClick={() => removeMarker(marker.id)}>Remove</Button>
             </div>
         </Popup>

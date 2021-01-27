@@ -7,8 +7,11 @@ import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
 import MarkerPreview from "../components/markerPreview";
+import MapStyleMenu from "../components/mapStyleMenu";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
+import "mapbox-gl/dist/mapbox-gl.css";
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./map.css";
 
 export default function Map() {
@@ -35,6 +38,7 @@ export default function Map() {
         sport: true,
         trad: true,
     });
+    const [style, setStyle] = useState("mapbox://styles/mapbox/streets-v11");
 
     useEffect(() => {
         dispatch(getMapMarker());
@@ -140,28 +144,15 @@ export default function Map() {
                 )}
             </div>
             <div className="map-container">
-                <div className="add-marker-box">
-                    {!tempMarker && (
-                        <p>
-                            Click anywhere on the map to add a new climbing
-                            spot.
-                        </p>
-                    )}
-                    {tempMarker && (
-                        <MarkerUploader
-                            cancelMarker={cancelMarker}
-                            newMarker={tempMarker}
-                        />
-                    )}
-                </div>
                 <ReactMapGL
                     ref={mapRef}
                     {...viewport}
                     width="100%"
                     height="100%"
                     onViewportChange={handleViewportChange}
-                    onClick={updateTempMarker}
+                    onContextMenu={updateTempMarker}
                     mapboxApiAccessToken={mapboxKey}
+                    mapStyle={style}
                 >
                     <Geocoder
                         mapRef={mapRef}
@@ -169,8 +160,10 @@ export default function Map() {
                         marker={false}
                         onViewportChange={handleViewportChange}
                         mapboxApiAccessToken={mapboxKey}
+                        position="top-left"
+                        clearAndBlurOnEsc={true}
                     />
-
+                    <MapStyleMenu style={style} setStyle={setStyle} />
                     {tempMarker && (
                         <Marker
                             longitude={tempMarker.long}
@@ -205,6 +198,20 @@ export default function Map() {
                         />
                     )}
                 </ReactMapGL>
+                <div className="add-marker-box">
+                    {!tempMarker && (
+                        <>
+                            Click anywhere on the map to add a new climbing
+                            spot.
+                        </>
+                    )}
+                    {tempMarker && (
+                        <MarkerUploader
+                            cancelMarker={cancelMarker}
+                            newMarker={tempMarker}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );

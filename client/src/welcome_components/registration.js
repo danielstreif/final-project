@@ -26,18 +26,21 @@ export default function Registration() {
                     name="first"
                     placeholder="First Name"
                     type="text"
+                    required
                 />
                 <Input
                     onChange={(e) => handleChange(e)}
                     name="last"
                     placeholder="Last Name"
                     type="text"
+                    required
                 />
                 <Input
                     onChange={(e) => handleChange(e)}
                     name="email"
                     placeholder="Email"
                     type="email"
+                    required
                 />
                 <Input
                     onChange={(e) => handleChange(e)}
@@ -45,6 +48,7 @@ export default function Registration() {
                     name="password"
                     placeholder="Password"
                     type="password"
+                    required
                 />
                 <Button onClick={() => handleSubmit()}>Create Account</Button>
                 <Link to="/login">

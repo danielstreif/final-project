@@ -1,6 +1,7 @@
 .preview-container {
+    position: relative;
     max-height: 600px;
-    width: 100%;
+    padding: 0 10px 10px 10px;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto 1fr 1fr 1fr;
@@ -10,14 +11,27 @@
 
 .preview-img {
     width: 100%;
-    border-radius: 8px;
+    height: 200px;
     cursor: pointer;
 }
 
 .map-container {
+    margin-top: 60px;
     margin-left: 20px;
     height: 70vh;
     max-width: 100%;
+}
+
+.map-style-menu {
+    width: 100%;
+    position: absolute;
+    padding-top: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dark-theme {
+    color: white;
 }
 
 .marker {
@@ -46,19 +60,27 @@
 }
 
 .boulder {
-    background: rgba(0, 128, 0, 0.6);
+    background: rgba(0, 128, 0, 0.8);
 }
 
 .sport {
-    background: rgba(255, 0, 0, 0.6);
+    background: rgba(255, 0, 0, 0.8);
 }
 
 .trad {
-    background: rgba(0, 0, 255, 0.6);
+    background: rgba(0, 0, 255, 0.8);
 }
 
 .temporary-marker span {
-    background: rgba(223, 223, 223, 0.6);
+    background: rgba(223, 223, 223, 0.8);
+}
+
+.add-marker-box {
+    height: 90px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 5px 12px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 20px;
 }
 
 .select-category {

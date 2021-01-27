@@ -26,6 +26,7 @@ export default function Login() {
                     name="email"
                     placeholder="Email"
                     type="email"
+                    required
                 />
                 <Input
                     onChange={(e) => handleChange(e)}
@@ -33,6 +34,7 @@ export default function Login() {
                     name="password"
                     placeholder="Password"
                     type="password"
+                    required
                 />
                 <Button onClick={() => handleSubmit()}>Log In</Button>
                 <Link to="/reset">Forgot password?</Link>
