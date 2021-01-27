@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useStatefulFields from "../hooks/useStatefulFields";
 import useAuthSubmit from "../hooks/useAuthSubmit";
 import WelcomeLogo from "../components/welcomeLogo";
+import { Button, Input } from "@material-ui/core";
 
 export default function Registration() {
     const [values, handleChange] = useStatefulFields();
@@ -20,28 +21,28 @@ export default function Registration() {
                 {error && (
                     <p className="error-message">Something went wrong...</p>
                 )}
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="first"
                     placeholder="First Name"
                     type="text"
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="last"
                     placeholder="Last Name"
                     type="text"
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="email"
                     placeholder="Email"
                     type="email"
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => handleChange(e)}
                     onKeyPress={(e) => handleKeyPress(e)}
@@ -49,9 +50,9 @@ export default function Registration() {
                     placeholder="Password"
                     type="password"
                 />
-                <button onClick={() => handleSubmit()}>Create Account</button>
+                <Button onClick={() => handleSubmit()}>Create Account</Button>
                 <Link to="/login">
-                    <button>Use Existing Account</button>
+                    <Button>Use Existing Account</Button>
                 </Link>
             </div>
         </div>

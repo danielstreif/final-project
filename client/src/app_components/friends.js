@@ -8,6 +8,7 @@ import {
     resetFriendRequests,
 } from "../redux/actions";
 import ProfilePic from "../components/profilePic";
+import { Button, List, ListItem } from "@material-ui/core";
 
 export default function Friends() {
     const dispatch = useDispatch();
@@ -39,16 +40,16 @@ export default function Friends() {
     }
 
     const userList = (group, buttonArr) => (
-        <ul className="user-list">
+        <List className="user-list">
             {group.map((user) => (
-                <li className="user-container" key={user.id}>
+                <ListItem className="user-container" key={user.id}>
                     <Link className="user-link" to={`/users/${user.id}`}>
                         <div className="friend-profile-pic">
                             <ProfilePic props={user} />
                         </div>
                         <p>{`${user.first} ${user.last}`}</p>
                         {buttonArr.map((button, index) => (
-                            <button
+                            <Button
                                 key={index}
                                 className="friend-button"
                                 onClick={(e) => {
@@ -57,12 +58,12 @@ export default function Friends() {
                                 }}
                             >
                                 {button.text}
-                            </button>
+                            </Button>
                         ))}
                     </Link>
-                </li>
+                </ListItem>
             ))}
-        </ul>
+        </List>
     );
 
     return (

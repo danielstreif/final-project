@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import useStatefulFields from "../hooks/useStatefulFields";
 import useAuthSubmit from "../hooks/useAuthSubmit";
 import WelcomeLogo from "../components/welcomeLogo";
+import { Button, Input } from "@material-ui/core";
 
 export default function Login() {
     const [values, handleChange] = useStatefulFields();
@@ -20,14 +21,14 @@ export default function Login() {
                 {error && (
                     <p className="error-message">Something went wrong...</p>
                 )}
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => handleChange(e)}
                     name="email"
                     placeholder="Email"
                     type="email"
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => handleChange(e)}
                     onKeyPress={(e) => handleKeyPress(e)}
@@ -35,10 +36,10 @@ export default function Login() {
                     placeholder="Password"
                     type="password"
                 />
-                <button onClick={() => handleSubmit()}>Log In</button>
+                <Button onClick={() => handleSubmit()}>Log In</Button>
                 <Link to="/reset">Forgot password?</Link>
                 <Link to="/">
-                    <button>Create New Account</button>
+                    <Button>Create New Account</Button>
                 </Link>
             </div>
         </div>

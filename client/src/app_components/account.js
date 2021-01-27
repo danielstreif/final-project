@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import useAuthSubmit from "../hooks/useAuthSubmit";
 import Uploader from "../components/imgUploader";
+import { Button, Input } from "@material-ui/core";
 
 export default function Account() {
     const activeUser = useSelector((state) => state.activeUser);
@@ -46,12 +47,12 @@ export default function Account() {
             <div className="modal-box">
                 <div className="modal-header">
                     <h2>Confirm Account Deletion</h2>
-                    <button className="close-button" onClick={toggleDelete}>
+                    <Button className="close-button" onClick={toggleDelete}>
                         X
-                    </button>
+                    </Button>
                 </div>
-                <button onClick={handleSubmit}>Delete Account</button>
-                <button onClick={toggleDelete}>Cancel</button>
+                <Button onClick={handleSubmit}>Delete Account</Button>
+                <Button onClick={toggleDelete}>Cancel</Button>
             </div>
         </div>
     );
@@ -65,7 +66,7 @@ export default function Account() {
                 {error && (
                     <p className="error-message">Something went wrong...</p>
                 )}
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     name="first"
@@ -73,7 +74,7 @@ export default function Account() {
                     type="text"
                     value={values.first}
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     name="last"
@@ -81,7 +82,7 @@ export default function Account() {
                     type="text"
                     value={values.last}
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
@@ -90,7 +91,7 @@ export default function Account() {
                     type="email"
                     value={values.email}
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
@@ -98,12 +99,12 @@ export default function Account() {
                     placeholder="Change Password"
                     type="password"
                 />
-                <button onClick={handleSubmit}>Submit Changes</button>
+                <Button onClick={handleSubmit}>Submit Changes</Button>
                 <Link to="/">
-                    <button>Cancel</button>
+                    <Button>Cancel</Button>
                 </Link>
-                <button onClick={toggleUpload}>Change Profile Picture</button>
-                <button onClick={toggleDelete}>Delete Account</button>
+                <Button onClick={toggleUpload}>Change Profile Picture</Button>
+                <Button onClick={toggleDelete}>Delete Account</Button>
             </div>
         </>
     );

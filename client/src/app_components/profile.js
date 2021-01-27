@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfilePic from "../components/profilePic";
 import BioEditor from "../components/bioEditor";
+import { Button } from "@material-ui/core";
 
 export default function Profile() {
     const activeUser = useSelector((state) => state.activeUser);
@@ -17,7 +18,7 @@ export default function Profile() {
                 </div>
                 <BioEditor />
                 <Link to="/account">
-                    <button>Account Settings</button>
+                    <Button>Account Settings</Button>
                 </Link>
             </div>
             <div className="profile-container-right">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfilePic } from "../redux/actions";
 import axios from "../axios";
+import { FormControl, Button, Input, FormLabel } from "@material-ui/core";
 
 export default function Uploader({ toggleModal }) {
     const dispatch = useDispatch();
@@ -54,14 +55,14 @@ export default function Uploader({ toggleModal }) {
                 {error && (
                     <p className="error-message">Something went wrong...</p>
                 )}
-                <form
+                <FormControl
                     name="upload-form"
                     method="POST"
                     action="/user/image/upload"
                     encType="multipart/form-data"
                     autoComplete="off"
                 >
-                    <input
+                    <Input
                         name="image"
                         className="input-file"
                         id="image"
@@ -69,16 +70,16 @@ export default function Uploader({ toggleModal }) {
                         accept="image/*"
                         onChange={handleChange}
                     />
-                    <label className="input-field" htmlFor="image">
+                    <FormLabel className="input-field" htmlFor="image">
                         {imgFileLabel}
-                    </label>
+                    </FormLabel>
                     <img src="/img/upload.png" onClick={uploadImage} />
                     {imageUrl && (
-                        <button onClick={deleteImage}>
+                        <Button onClick={deleteImage}>
                             Delete Current Image
-                        </button>
+                        </Button>
                     )}
-                </form>
+                </FormControl>
             </div>
         </div>
     );

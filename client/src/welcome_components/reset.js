@@ -3,6 +3,7 @@ import { useState } from "react";
 import useStatefulFields from "../hooks/useStatefulFields";
 import axios from "../axios";
 import WelcomeLogo from "../components/welcomeLogo";
+import { Button, Input } from "@material-ui/core";
 
 export default function Reset() {
     const [values, handleChange] = useStatefulFields();
@@ -64,7 +65,7 @@ export default function Reset() {
                         No account associated with this email address...
                     </p>
                 )}
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
@@ -72,7 +73,7 @@ export default function Reset() {
                     placeholder="Recovery Email"
                     type="email"
                 />
-                <button onClick={handleRequest}>Submit</button>
+                <Button onClick={handleRequest}>Submit</Button>
             </>
         );
     };
@@ -83,14 +84,14 @@ export default function Reset() {
                 {error && (
                     <p className="error-message">Something went wrong...</p>
                 )}
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     name="code"
                     placeholder="Verification Code"
                     type="text"
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     onKeyPress={handleKeyPress}
@@ -98,9 +99,9 @@ export default function Reset() {
                     placeholder="New Password"
                     type="password"
                 />
-                <button onClick={() => this.handleVerification()}>
+                <Button onClick={() => this.handleVerification()}>
                     Submit
-                </button>
+                </Button>
             </>
         );
     };
@@ -117,7 +118,7 @@ export default function Reset() {
                 {view === "verify" && verify()}
                 {view === "confirm" && confirm()}
                 <Link to="/login">
-                    <button>Remember Your Password?</button>
+                    <Button>Remember Your Password?</Button>
                 </Link>
             </div>
         </div>

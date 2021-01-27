@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import ProfilePic from "../components/profilePic";
 import Messenger from "../components/messenger";
 import { getPrivateMessages, getFriendList } from "../redux/actions";
+import { Button, List, ListItem } from "@material-ui/core";
 
 import "./messages.css";
 
@@ -33,10 +34,10 @@ export default function Messages() {
 
     const friendList = () => {
         return (
-            <ul className="user-list">
+            <List className="user-list">
                 {friends.map((friend) => (
-                    <li className="user-container" key={friend.id}>
-                        <button onClick={() => startPrivateMessage(friend.id)}>
+                    <ListItem className="user-container" key={friend.id}>
+                        <Button onClick={() => startPrivateMessage(friend.id)}>
                             <div className="friend-profile-pic">
                                 <ProfilePic props={friend} />
                                 <div
@@ -59,10 +60,10 @@ export default function Messages() {
                                     )}
                             </div>
                             <p>{`${friend.first} ${friend.last}`}</p>
-                        </button>
-                    </li>
+                        </Button>
+                    </ListItem>
                 ))}
-            </ul>
+            </List>
         );
     };
 

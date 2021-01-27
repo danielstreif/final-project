@@ -8,8 +8,8 @@ const useStyles = makeStyles(() => ({
     header: {
         display: "flex",
         backgroundColor: "black",
-        paddingRight: "100px",
-        paddingLeft: "100px",
+        paddingRight: "76px",
+        paddingLeft: "76px",
     },
     menuButton: {
         fontFamily: "Open Sans, sans-serif",

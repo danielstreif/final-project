@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBio } from "../redux/actions";
 import axios from "../axios";
+import { Button, TextareaAutosize } from "@material-ui/core";
 
 export default function BioEditor() {
     const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function BioEditor() {
     const emptyMode = () => {
         return (
             <div className="bio-container">
-                <button onClick={toggleTextarea}>Add Bio</button>
+                <Button onClick={toggleTextarea}>Add Bio</Button>
             </div>
         );
     };
@@ -49,7 +50,7 @@ export default function BioEditor() {
         return (
             <div className="bio-container">
                 <p className="bio-text">{bio}</p>
-                <button onClick={toggleTextarea}>Edit Bio</button>
+                <Button onClick={toggleTextarea}>Edit Bio</Button>
             </div>
         );
     };
@@ -57,10 +58,10 @@ export default function BioEditor() {
         return (
             <div className="bio-container">
                 {error && <p>Something went wrong.</p>}
-                <textarea onChange={handleChange} value={draftBio} />
+                <TextareaAutosize onChange={handleChange} value={draftBio} />
                 <span>
-                    <button onClick={handleUpload}>Save</button>
-                    <button onClick={resetTextarea}>Close</button>
+                    <Button onClick={handleUpload}>Save</Button>
+                    <Button onClick={resetTextarea}>Close</Button>
                 </span>
             </div>
         );

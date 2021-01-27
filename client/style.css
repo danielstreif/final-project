@@ -1,36 +1,43 @@
 body {
     background-color: ghostwhite;
     font-family: Open Sans, sans-serif;
+    margin: 0;
+}
+
+main {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr 50px;
+}
+
+.app-container {
+    padding-top: 70px;
+    margin-left: 100px;
+    margin-right: 100px;
+    max-height: 100%;
+}
+
+.welcome-container {
+    padding-top: 70px;
+    margin-left: 100px;
+    margin-right: 100px;
+    max-height: 100%;
+}
+
+footer {
+    font-size: small;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 a {
     text-decoration: none;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
-li {
-    list-style-type: none;
-}
-
-.app-container {
-    position: relative;
-    min-height: 100vh;
-    margin-left: 100px;
-    margin-right: 100px;
-    top: 65px;
-}
-
 .page-container {
-    position: relative;
     display: grid;
     grid-template-columns: 1fr 3fr;
-    height: 100%;
 }
 
 .profile-pic {
@@ -51,20 +58,6 @@ li {
 }
 
 .friend-profile-pic {
-    width: 100px;
+    min-width: 100px;
     height: 100px;
-}
-
-.input-file {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-.input-file + label {
-    cursor: pointer;
-    overflow: hidden;
 }

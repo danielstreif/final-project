@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "../axios";
 import ProfilePic from "../components/profilePic";
 import FriendButton from "../components/friendButton";
+import { Input, List, ListItem } from "@material-ui/core";
 
 export default function FindPeople() {
     const [query, setQuery] = useState();
@@ -30,16 +31,16 @@ export default function FindPeople() {
         <>
             <div className="user-search-container">
                 <h2>Search users</h2>
-                <input
+                <Input
                     className="input-field"
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search by name"
                 />
                 {error && <p>Something went wrong.</p>}
             </div>
-            <ul className="user-list">
+            <List className="user-list">
                 {users.map((user) => (
-                    <li className="user-container" key={user.id}>
+                    <ListItem className="user-container" key={user.id}>
                         <Link to={`/users/${user.id}`}>
                             <div className="friend-profile-pic">
                                 <ProfilePic props={user} />
@@ -47,10 +48,10 @@ export default function FindPeople() {
                             <p>{`${user.first} ${user.last}`}</p>
                             <FriendButton otherId={user.id} />
                         </Link>
-                    </li>
+                    </ListItem>
                 ))}
                 {!users.length && query && <p>No Results</p>}
-            </ul>
+            </List>
         </>
     );
 }

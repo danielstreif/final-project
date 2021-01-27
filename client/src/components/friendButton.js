@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "../axios";
 import { socket } from "../socket";
+import { Button } from "@material-ui/core";
 
 export default function FriendButton({ otherId }) {
     const [buttonText, setButtonText] = useState();
@@ -44,21 +45,21 @@ export default function FriendButton({ otherId }) {
 
     return (
         <>
-            <button
+            <Button
                 className="friend-button"
                 value={buttonText}
                 onClick={handleClick}
             >
                 {buttonText}
-            </button>
+            </Button>
             {buttonText === "Accept" && (
-                <button
+                <Button
                     className="friend-button"
                     value="Decline"
                     onClick={handleClick}
                 >
                     Decline
-                </button>
+                </Button>
             )}
         </>
     );

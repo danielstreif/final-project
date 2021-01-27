@@ -2,17 +2,16 @@ import { useState } from "react";
 import useStatefulFields from "../hooks/useStatefulFields";
 import { useDispatch } from "react-redux";
 import { addMapMarker } from "../redux/actions";
+import { FormControl, Button, Input, Select, FormLabel } from "@material-ui/core";
 
 export default function MarkerUploader({ cancelMarker, newMarker }) {
     const dispatch = useDispatch();
     const [values, handleChange] = useStatefulFields();
     const [imgFile, setImgFile] = useState();
-    const [imgFileLabel, setImgFileLabel] = useState("Choose file");
     const [category, setCategory] = useState();
 
     const handleFileChange = (e) => {
         setImgFile(e.target.files[0]);
-        setImgFileLabel(e.target.files[0].name);
     };
 
     const handleSelect = (e) => {
@@ -35,29 +34,31 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
 
     return (
         <div>
-            <form
+            <FormControl
                 name="upload-form"
                 method="POST"
                 action="/user/image/upload"
                 encType="multipart/form-data"
                 autoComplete="off"
             >
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     name="title"
                     placeholder="Title"
                     type="text"
                 />
-                <input
+                <Input
                     className="input-field"
                     onChange={handleChange}
                     name="description"
                     placeholder="Description"
                     type="text"
                 />
-                <label htmlFor="marker-type">Choose climbing category:</label>
-                <select
+                <FormLabel htmlFor="marker-type">
+                    Choose climbing category:
+                </FormLabel>
+                <Select
                     name="marker-type"
                     id="marker-type"
                     onChange={handleSelect}
@@ -65,8 +66,8 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     <option value="boulder">Bouldering</option>
                     <option value="sport">Sport Climbing</option>
                     <option value="trad">Trad Climbing</option>
-                </select>
-                <input
+                </Select>
+                <Input
                     name="image"
                     className="input-file"
                     id="image"
@@ -74,12 +75,9 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     accept="image/*"
                     onChange={handleFileChange}
                 />
-                <label className="input-field" htmlFor="image">
-                    {imgFileLabel}
-                </label>
-                <button onClick={saveMarker}>Add</button>
-            </form>
-            <button onClick={cancelMarker}>Cancel</button>
+                <Button onClick={saveMarker}>Add</Button>
+            </FormControl>
+            <Button onClick={cancelMarker}>Cancel</Button>
         </div>
     );
 }

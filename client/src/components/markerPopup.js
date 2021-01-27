@@ -1,5 +1,6 @@
 import { Popup } from "react-map-gl";
 import "./markerPopup.css";
+import { Button } from "@material-ui/core";
 
 export default function MarkerPopup({ marker, closePopup, removeMarker }) {
     return (
@@ -23,7 +24,7 @@ export default function MarkerPopup({ marker, closePopup, removeMarker }) {
                 {marker.description != "undefined" && (
                     <p>{marker.description}</p>
                 )}
-                <button onClick={() => removeMarker(marker.id)}>Remove</button>
+                <Button onClick={() => removeMarker(marker.id)}>Remove</Button>
             </div>
         </Popup>
     );

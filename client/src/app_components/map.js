@@ -7,6 +7,7 @@ import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
 import MarkerPreview from "../components/markerPreview";
+import { Input, FormLabel } from "@material-ui/core";
 
 import "./map.css";
 
@@ -79,45 +80,48 @@ export default function Map() {
             <div className="preview-container">
                 <h2>Recently added</h2>
                 <div className="select-category">
-                    <input
+                    <Input
                         type="checkbox"
                         id="boulder"
                         name="boulder"
                         value="boulder"
                         onClick={setBoulderStat}
                     />
-                    <label
+                    <FormLabel
                         className={`${boulder ? "" : "active"}`}
                         htmlFor="boulder"
                     >
                         {" "}
                         Bouldering
-                    </label>
-                    <input
+                    </FormLabel>
+                    <Input
                         type="checkbox"
                         id="sport"
                         name="sport"
                         value="sport"
                         onClick={setSportStat}
                     />
-                    <label
+                    <FormLabel
                         className={`${sport ? "" : "active"}`}
                         htmlFor="sport"
                     >
                         {" "}
                         Sport Climbing
-                    </label>
-                    <input
+                    </FormLabel>
+                    <Input
                         type="checkbox"
                         id="trad"
                         name="trad"
                         value="trad"
                         onClick={setTradStat}
                     />
-                    <label className={`${trad ? "" : "active"}`} htmlFor="trad">
+                    <FormLabel
+                        className={`${trad ? "" : "active"}`}
+                        htmlFor="trad"
+                    >
                         {" "}
                         Trad Climbing
-                    </label>
+                    </FormLabel>
                 </div>
                 {mapMarker && mapMarker.length > 0 && (
                     <>
