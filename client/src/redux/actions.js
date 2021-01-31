@@ -40,7 +40,7 @@ export async function getFriendList() {
 }
 
 export async function acceptRequest(otherId) {
-    const { data } = await axios.post(`/friendship-action/Accept/${otherId}`);
+    const { data } = await axios.post(`/friendships-action/Accept/${otherId}`);
     if (data.success) {
         return {
             type: "ACCEPT_REQUEST",
@@ -50,7 +50,7 @@ export async function acceptRequest(otherId) {
 }
 
 export async function unfriend(otherId) {
-    const { data } = await axios.post(`/friendship-action/Cancel/${otherId}`);
+    const { data } = await axios.post(`/friendships-action/Cancel/${otherId}`);
     if (data.success) {
         return {
             type: "UNFRIEND",
@@ -80,7 +80,7 @@ export function resetFriendRequests() {
 }
 
 export async function getPrivateMessages(id) {
-    const { data } = await axios.get(`/user/messages/${id}`);
+    const { data } = await axios.get(`/messages/${id}`);
     return {
         type: "GET_PRIVATE_MESSAGES",
         privateMessages: data.success,

@@ -39,7 +39,7 @@ export default function Reset() {
             email: values.email,
         };
         axios
-            .post("/password/reset/start", input)
+            .post("/auth/password/reset/start", input)
             .then(({ data }) => {
                 if (data.error) {
                     setError(true);
@@ -59,7 +59,7 @@ export default function Reset() {
             password: values.password,
         };
         axios
-            .post("/password/reset/verify", input)
+            .post("/auth/password/reset/verify", input)
             .then(({ data }) => {
                 if (data.error) {
                     setError(true);

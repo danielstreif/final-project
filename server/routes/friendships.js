@@ -15,7 +15,7 @@ router.get("/friendships", (req, res) => {
         });
 });
 
-router.get("/friendship-status/:otherId", (req, res) => {
+router.get("/friendships-status/:otherId", (req, res) => {
     const { otherId } = req.params;
     const userId = req.session.userId;
     db.getFriendshipStatus(userId, otherId)
@@ -28,7 +28,7 @@ router.get("/friendship-status/:otherId", (req, res) => {
         });
 });
 
-router.post("/friendship-action/:action/:otherId", (req, res) => {
+router.post("/friendships-action/:action/:otherId", (req, res) => {
     const { action, otherId } = req.params;
     const userId = req.session.userId;
 

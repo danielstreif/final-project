@@ -3,7 +3,7 @@ const db = require("../database/messages");
 
 const router = express.Router();
 
-router.get("/user/messages/:id", (req, res) => {
+router.get("/messages/:id", (req, res) => {
     const userId = req.session.userId;
     const { id } = req.params;
     db.getPrivateChat(userId, id)

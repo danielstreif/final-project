@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Registration() {
     const [values, handleChange] = useStatefulFields();
-    const [error, handleSubmit] = useAuthSubmit("/registration", values, "/");
+    const [error, handleSubmit] = useAuthSubmit("/auth/registration", values, "/");
     const { inputSpacing, submit } = useStyles();
 
     const handleKeyPress = (e) => {

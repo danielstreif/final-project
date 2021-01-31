@@ -8,7 +8,7 @@ export default function Logout() {
     
     const logout = () => {
         axios
-            .get("/logout")
+            .get("/auth/logout")
             .then(({ data }) => {
                 if (data.logout) {
                     location.replace("/");

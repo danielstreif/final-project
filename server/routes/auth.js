@@ -6,7 +6,7 @@ const ses = require("../ses");
 
 const router = express.Router();
 
-router.post("/login", (req, res) => {
+router.post("/auth/login", (req, res) => {
     const { email, password } = req.body;
     let userId;
     db.getCredentials(email)
@@ -28,12 +28,12 @@ router.post("/login", (req, res) => {
         });
 });
 
-router.get("/logout", (req, res) => {
+router.get("/auth/logout", (req, res) => {
     req.session = null;
     res.json({ logout: true });
 });
 
-router.post("/registration", (req, res) => {
+router.post("/auth/registration", (req, res) => {
     const { first, last, email, password } = req.body;
     hash(password)
         .then((hash) => {
@@ -49,7 +49,7 @@ router.post("/registration", (req, res) => {
         });
 });
 
-router.post("/password/reset/start", (req, res) => {
+router.post("/auth/password/reset/start", (req, res) => {
     const { email } = req.body;
     const secretCode = cryptoRandomString({ length: 6 });
     db.checkEmailValid(email)
@@ -71,7 +71,7 @@ router.post("/password/reset/start", (req, res) => {
         });
 });
 
-router.post("/password/reset/verify", (req, res) => {
+router.post("/auth/password/reset/verify", (req, res) => {
     const { code, email, password } = req.body;
     db.verifyResetCode(code, email)
         .then(({ rows }) => {

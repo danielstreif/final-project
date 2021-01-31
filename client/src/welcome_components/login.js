@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 
 export default function Login() {
     const [values, handleChange] = useStatefulFields();
-    const [error, handleSubmit] = useAuthSubmit("/login", values, "/");
+    const [error, handleSubmit] = useAuthSubmit("/auth/login", values, "/");
     const { inputSpacing, submit } = useStyles();
 
     const handleKeyPress = (e) => {

@@ -11,7 +11,7 @@ export default function FriendButton({ otherId }) {
             let abort;
             (async () => {
                 const { data } = await axios.get(
-                    `/friendship-status/${otherId}`
+                    `/friendships-status/${otherId}`
                 );
                 if (!abort) {
                     if (data.success) {
@@ -31,7 +31,7 @@ export default function FriendButton({ otherId }) {
             socket.emit("friend request", Number(otherId));
         }
         axios
-            .post(`/friendship-action/${action}/${otherId}`)
+            .post(`/friendships-action/${action}/${otherId}`)
             .then(({ data }) => {
                 if (data.success) {
                     setButtonText(data.success);
