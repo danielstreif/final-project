@@ -8,10 +8,17 @@ import {
     resetFriendRequests,
 } from "../redux/actions";
 import ProfilePic from "../components/profilePic";
-import { Button } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+    friendButton: {
+        marginRight: "5px",
+    },
+}));
 
 export default function Friends() {
     const dispatch = useDispatch();
+    const { friendButton } = useStyles();
     const friends = useSelector(
         (state) => state.users && state.users.filter((user) => user.accepted)
     );
@@ -50,6 +57,7 @@ export default function Friends() {
                         <p>{`${user.first} ${user.last}`}</p>
                         {buttonArr.map((button, index) => (
                             <Button
+                                className={friendButton}
                                 variant="outlined"
                                 key={index}
                                 onClick={(e) => {

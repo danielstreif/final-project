@@ -30,28 +30,22 @@ export default function MarkerPopup({
                         />
                     )}
                     {marker.title != "undefined" && <p>{marker.title}</p>}
-                    {marker.first && (
-                        <Link to={`/users/${marker.user_id}`}>
-                            <div className="navbar-profile-pic">
-                                <img
-                                    className="profile-pic"
-                                    src={marker.user_url}
-                                    alt={`${marker.first} ${marker.last}`}
-                                />
-                            </div>
-                        </Link>
-                    )}
-                    <Button onClick={() => toggleModal(marker)}>
-                        View Comments
-                    </Button>
-                    {userId == marker.user_id && (
-                        <img
-                            className="delete-icon"
-                            src="/img/bin.png"
-                            alt="delete"
-                            onClick={() => removeMarker(marker.id)}
-                        />
-                    )}
+                    <span>
+                        <Button
+                            variant="outlined"
+                            onClick={() => toggleModal(marker)}
+                        >
+                            View Comments
+                        </Button>
+                        {userId == marker.user_id && (
+                            <img
+                                className="delete-icon-marker"
+                                src="/img/bin.png"
+                                alt="delete"
+                                onClick={() => removeMarker(marker.id)}
+                            />
+                        )}
+                    </span>
                 </div>
             </Popup>
         </>

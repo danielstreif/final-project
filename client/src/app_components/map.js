@@ -105,59 +105,84 @@ export default function Map() {
                 />
             )}
             <div className="preview-container">
-                <h2>Recently added</h2>
-                <div className="select-category">
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={filter.boulder}
-                                onChange={setCategoryFilter}
-                                name="boulder"
-                                color="primary"
-                            />
-                        }
-                        label="Bouldering"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={filter.sport}
-                                onChange={setCategoryFilter}
-                                name="sport"
-                                color="primary"
-                            />
-                        }
-                        label="Sport Climbing"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={filter.trad}
-                                onChange={setCategoryFilter}
-                                name="trad"
-                                color="primary"
-                            />
-                        }
-                        label="Trad Climbing"
-                    />
-                </div>
-                {filteredMarker && filteredMarker.length > 0 && (
+                {tempMarker && (
+                    <div className="add-marker-box">
+                        <h2>Add a new crag</h2>
+                        <MarkerUploader
+                            cancelMarker={cancelMarker}
+                            newMarker={tempMarker}
+                        />
+                    </div>
+                )}
+                {!tempMarker && (
                     <>
-                        <MarkerPreview
-                            marker={filteredMarker[filteredMarker.length - 1]}
-                            focus={focusViewport}
-                            toggleModal={toggleModal}
-                        />
-                        <MarkerPreview
-                            marker={filteredMarker[filteredMarker.length - 2]}
-                            focus={focusViewport}
-                            toggleModal={toggleModal}
-                        />
-                        <MarkerPreview
-                            marker={filteredMarker[filteredMarker.length - 3]}
-                            focus={focusViewport}
-                            toggleModal={toggleModal}
-                        />
+                        <h2>Recently added crags</h2>
+                        <div className="select-category">
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={filter.boulder}
+                                        onChange={setCategoryFilter}
+                                        name="boulder"
+                                        color="primary"
+                                    />
+                                }
+                                label="Bouldering"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={filter.sport}
+                                        onChange={setCategoryFilter}
+                                        name="sport"
+                                        color="primary"
+                                    />
+                                }
+                                label="Sport Climbing"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={filter.trad}
+                                        onChange={setCategoryFilter}
+                                        name="trad"
+                                        color="primary"
+                                    />
+                                }
+                                label="Trad Climbing"
+                            />
+                        </div>
+                        {filteredMarker && filteredMarker.length > 0 && (
+                            <>
+                                <MarkerPreview
+                                    marker={
+                                        filteredMarker[
+                                            filteredMarker.length - 1
+                                        ]
+                                    }
+                                    focus={focusViewport}
+                                    toggleModal={toggleModal}
+                                />
+                                <MarkerPreview
+                                    marker={
+                                        filteredMarker[
+                                            filteredMarker.length - 2
+                                        ]
+                                    }
+                                    focus={focusViewport}
+                                    toggleModal={toggleModal}
+                                />
+                                <MarkerPreview
+                                    marker={
+                                        filteredMarker[
+                                            filteredMarker.length - 3
+                                        ]
+                                    }
+                                    focus={focusViewport}
+                                    toggleModal={toggleModal}
+                                />
+                            </>
+                        )}
                     </>
                 )}
             </div>
@@ -218,17 +243,9 @@ export default function Map() {
                         />
                     )}
                 </ReactMapGL>
-                <div className="add-marker-box">
-                    {!tempMarker && (
-                        <>Right click on the map to add a new climbing spot.</>
-                    )}
-                    {tempMarker && (
-                        <MarkerUploader
-                            cancelMarker={cancelMarker}
-                            newMarker={tempMarker}
-                        />
-                    )}
-                </div>
+                {!tempMarker && (
+                    <p>Right click on the map to add a new climbing spot.</p>
+                )}
             </div>
         </div>
     );

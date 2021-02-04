@@ -6,7 +6,7 @@ import {
     Button,
     Input,
     Select,
-    InputLabel,
+    FormHelperText,
     MenuItem,
     FormControl,
     makeStyles,
@@ -15,6 +15,7 @@ import {
 const useStyles = makeStyles(() => ({
     inputSpacing: {
         marginBottom: "15px",
+        width: "100%",
     },
 }));
 
@@ -97,12 +98,8 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     required
                 />
                 <div>
-                    <FormControl>
-                        <InputLabel id="marker-category">
-                            Climbing category:
-                        </InputLabel>
+                    <FormControl className={inputSpacing}>
                         <Select
-                            className={inputSpacing}
                             labelId="marker-category"
                             id="select"
                             value={category}
@@ -113,6 +110,9 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                             <MenuItem value="sport">Sport Climbing</MenuItem>
                             <MenuItem value="trad">Trad Climbing</MenuItem>
                         </Select>
+                        <FormHelperText>
+                            Chose a climbing category
+                        </FormHelperText>
                     </FormControl>
                 </div>
                 <Button
@@ -120,7 +120,7 @@ export default function MarkerUploader({ cancelMarker, newMarker }) {
                     variant="outlined"
                     onClick={saveMarker}
                 >
-                    Add
+                    Add this location
                 </Button>
             </form>
             <Button onClick={cancelMarker}>Cancel</Button>
