@@ -14,12 +14,15 @@ export default function CommentModal({ activePost, toggleModal }) {
                     <h2>{activePost.title}</h2>
                     <Button onClick={toggleModal}>X</Button>
                 </div>
-
-                <img src={activePost.url} alt={`Image ${activePost.id}`} />
+                <img
+                    className="marker-image"
+                    src={activePost.url}
+                    alt={`Image ${activePost.id}`}
+                />
                 <p className="standard-text">{activePost.description}</p>
-                <p>
-                    {activePost.first} {activePost.last}
-                </p>
+                <span className="user-info marker-author">
+                    {activePost.first} {activePost.last} on {activePost.time}
+                </span>
                 <Comments markerId={activePost.id} />
             </div>
         </div>

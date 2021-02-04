@@ -88,12 +88,35 @@
     padding-bottom: 10px;
 }
 
-.chat-textarea {
-    width: 490px;
+.marker-image {
+    width: 100%;
+}
+
+.marker-author {
+    justify-self: end;
+    margin: 0;
+}
+
+.comment-textarea {
+    width: calc(100% - 10px);
     height: 100px;
     font-family: inherit;
     font-size: 15px;
     border: none;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 5px 12px rgba(0, 0, 0, 0.2);
     padding: 5px;
+    margin-bottom: 10px;
+}
+
+.single-comment {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 5px 10px;
+    border: darkgray solid 0.5px;
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    display: grid;
+    justify-items: end;
 }

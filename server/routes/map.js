@@ -32,6 +32,9 @@ const uploader = multer({
 
 router.get("/map/marker", async (req, res) => {
     const { rows } = await db.getAllMarker();
+    for (let i in rows) {
+        rows[i].time = rows[i].created_at.toLocaleString();
+    }
     const data = rows;
     for (let i in data) {
         const { rows } = await db.getMarkerImages(data[i].id);
@@ -45,6 +48,9 @@ router.get("/map/marker", async (req, res) => {
 router.get("/map/marker/:id", async (req, res) => {
     const { id } = req.params;
     const { rows } = await db.getMarkerByUser(id);
+    for (let i in rows) {
+        rows[i].time = rows[i].created_at.toLocaleString();
+    }
     const data = rows;
     for (let i in data) {
         const { rows } = await db.getMarkerImages(data[i].id);
@@ -69,6 +75,7 @@ router.post(
             description,
             category
         );
+        rows[0].time = rows[0].created_at.toLocaleString();
         const data = rows[0];
         let newUrl;
         if (req.file) {

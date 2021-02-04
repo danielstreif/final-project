@@ -5,14 +5,14 @@ const db = spicedPg(
 );
 
 module.exports.getAllMarker = () => {
-    return db.query(`SELECT map_marker.id, title, description, long, lat, category, first, last, url AS user_url, user_id FROM map_marker
+    return db.query(`SELECT map_marker.id, title, description, long, lat, category, first, last, map_marker.created_at, url AS user_url, user_id FROM map_marker
         JOIN users ON user_id = users.id
     ORDER BY id DESC`);
 };
 
 module.exports.getMarkerByUser = (userId) => {
     return db.query(
-        `SELECT map_marker.id, title, description, long, lat, category, first, last, url AS user_url, user_id FROM map_marker
+        `SELECT map_marker.id, title, description, long, lat, category, first, last, map_marker.created_at, url AS user_url, user_id FROM map_marker
         JOIN users ON user_id = users.id
     WHERE user_id = $1
     ORDER BY id DESC`,
@@ -31,7 +31,7 @@ module.exports.addMapMarker = (
     return db.query(
         `INSERT INTO map_marker (user_id, long, lat, title, description, category)
     VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING id, user_id, long, lat, title, description, category`,
+    RETURNING id, user_id, long, lat, title, description, category, created_at`,
         [userId, long, lat, title, description, category]
     );
 };

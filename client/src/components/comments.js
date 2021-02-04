@@ -60,24 +60,31 @@ export default function Comments({ markerId }) {
 
     return (
         <div className="comment-container">
+            <h3>Leave a comment</h3>
             {error && <p className="error-message">Something went wrong.</p>}
-            <textarea
-                className="chat-textarea"
-                placeholder="Compose Message"
-                onChange={handleChange}
-                value={state.draft ? state.draft : ""}
-            />
+            <div>
+                <textarea
+                    className="comment-textarea"
+                    placeholder="Compose Message"
+                    onChange={handleChange}
+                    value={state.draft ? state.draft : ""}
+                />
+            </div>
             <div>
                 <Button variant="outlined" onClick={handleSubmit}>
                     Comment
                 </Button>
             </div>
+            <h3>Previous comments</h3>
+            {state.comments && state.comments.length === 0 && (
+                <p>Be the first one to comment.</p>
+            )}
             <ul>
                 {state.comments &&
                     state.comments.map((comment) => (
-                        <li key={comment.id}>
+                        <li className="single-comment" key={comment.id}>
                             {comment.comment}
-                            <span>
+                            <span className="comment-info">
                                 <Link
                                     className="chat-user"
                                     to={`/users/${comment.user}`}
@@ -87,10 +94,8 @@ export default function Comments({ markerId }) {
                                     </div>
                                 </Link>
                                 <span className="user-info">
-                                    <div>
-                                        {comment.first} {comment.last}
-                                    </div>
-                                    <div>{comment.time}</div>
+                                    {comment.first} {comment.last} on{" "}
+                                    {comment.time}
                                     {userId == comment.user && (
                                         <img
                                             className="delete-icon"
