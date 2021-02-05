@@ -6,10 +6,9 @@ import Geocoder from "react-map-gl-geocoder";
 import MarkerPopup from "../components/markerPopup";
 import MapMarker from "../components/mapMarker";
 import MarkerUploader from "../components/markerUploader";
-import MarkerPreview from "../components/markerPreview";
+import MapControl from "../components/mapControl";
 import MapStyleMenu from "../components/mapStyleMenu";
 import CommentModal from "../components/commentModal";
-import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
@@ -115,75 +114,13 @@ export default function Map() {
                     </div>
                 )}
                 {!tempMarker && (
-                    <>
-                        <h2>Recently added crags</h2>
-                        <div className="select-category">
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={filter.boulder}
-                                        onChange={setCategoryFilter}
-                                        name="boulder"
-                                        color="primary"
-                                    />
-                                }
-                                label="Bouldering"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={filter.sport}
-                                        onChange={setCategoryFilter}
-                                        name="sport"
-                                        color="primary"
-                                    />
-                                }
-                                label="Sport Climbing"
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        checked={filter.trad}
-                                        onChange={setCategoryFilter}
-                                        name="trad"
-                                        color="primary"
-                                    />
-                                }
-                                label="Trad Climbing"
-                            />
-                        </div>
-                        {filteredMarker && filteredMarker.length > 0 && (
-                            <>
-                                <MarkerPreview
-                                    marker={
-                                        filteredMarker[
-                                            filteredMarker.length - 1
-                                        ]
-                                    }
-                                    focus={focusViewport}
-                                    toggleModal={toggleModal}
-                                />
-                                <MarkerPreview
-                                    marker={
-                                        filteredMarker[
-                                            filteredMarker.length - 2
-                                        ]
-                                    }
-                                    focus={focusViewport}
-                                    toggleModal={toggleModal}
-                                />
-                                <MarkerPreview
-                                    marker={
-                                        filteredMarker[
-                                            filteredMarker.length - 3
-                                        ]
-                                    }
-                                    focus={focusViewport}
-                                    toggleModal={toggleModal}
-                                />
-                            </>
-                        )}
-                    </>
+                    <MapControl
+                        setCategoryFilter={setCategoryFilter}
+                        focusViewport={focusViewport}
+                        toggleModal={toggleModal}
+                        filter={filter}
+                        filteredMarker={filteredMarker}
+                    />
                 )}
             </div>
             <div className="map-container">

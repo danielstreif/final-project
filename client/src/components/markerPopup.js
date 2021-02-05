@@ -1,6 +1,5 @@
 import { Popup } from "react-map-gl";
 import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
 
 import "./markerPopup.css";
 
